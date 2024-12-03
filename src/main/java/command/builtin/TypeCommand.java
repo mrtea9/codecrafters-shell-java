@@ -17,5 +17,4 @@ public record TypeCommand(String command) implements Command {
 
         return new CommandResponse("%s: not found".formatted(command));
     }
-
 }
