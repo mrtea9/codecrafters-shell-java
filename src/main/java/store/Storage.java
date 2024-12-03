@@ -1,10 +1,7 @@
 package store;
 
 import command.Command;
-import command.builtin.EchoCommand;
-import command.builtin.ExitCommand;
-import command.builtin.PwdCommand;
-import command.builtin.TypeCommand;
+import command.builtin.*;
 import file.FindFile;
 
 import java.util.List;
@@ -28,6 +25,7 @@ public class Storage {
         register("exit", singleArgumentCommand(ExitCommand::new));
         register("echo", singleArgumentCommand(EchoCommand::new));
         register("type", singleArgumentCommand(TypeCommand::new));
+        register("cd", singleArgumentCommand(CdCommand::new));
     }
 
     public Map<String, BiFunction<String, List<String>, Command>> getParsers() {
