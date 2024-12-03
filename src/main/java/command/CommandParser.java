@@ -46,14 +46,7 @@ public class CommandParser {
         try {
             Process process = new ProcessBuilder(executable, arguments.getFirst()).start();
 
-            InputStream is = process.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(isr);
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-            }
+            process.getInputStream().transferTo(System.out);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
