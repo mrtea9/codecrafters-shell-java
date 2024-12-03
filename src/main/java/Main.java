@@ -5,7 +5,7 @@ public class Main {
 
         Repl repl = new Repl();
 
-        repl.startLoop();
+        repl.start();
 
     }
 }
