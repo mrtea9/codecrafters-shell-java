@@ -15,7 +15,6 @@ public class Repl {
 
         while (true) {
             System.out.print("$ ");
-            System.out.println(scanner.hasNext());
             String input = scanner.nextLine();
 
             final var parsed = commandParser.parse(input);
@@ -23,6 +22,7 @@ public class Repl {
             if (parsed == null) continue;
 
             System.out.println(parsed.command().execute(storage));
+            System.out.println(scanner.hasNext());
         }
 
     }
