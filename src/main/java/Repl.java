@@ -1,4 +1,5 @@
 import command.CommandParser;
+import store.Storage;
 
 import java.util.Scanner;
 
@@ -6,6 +7,7 @@ public class Repl {
 
     private final Scanner scanner = new Scanner(System.in);
     private final CommandParser commandParser = new CommandParser();
+    private final Storage storage = new Storage(commandParser.getParsers());
 
     public void start() {
 
@@ -16,7 +18,7 @@ public class Repl {
 
             if (parsed == null) continue;
 
-            System.out.println(parsed.command().execute());
+            System.out.println(parsed.command().execute(storage));
         }
 
     }

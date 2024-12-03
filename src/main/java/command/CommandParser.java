@@ -20,6 +20,10 @@ public class CommandParser {
 
     }
 
+    public Map<String, BiFunction<String, List<String>, Command>> getParsers() {
+        return parsers;
+    }
+
     public void register(String name, BiFunction<String, List<String>, Command> parser) {
         parsers.put(name, parser);
     }

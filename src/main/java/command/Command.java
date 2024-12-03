@@ -1,7 +1,9 @@
 package command;
 
+import store.Storage;
+
 public interface Command {
 
-    CommandResponse execute();
+    CommandResponse execute(Storage storage);
 
 }
