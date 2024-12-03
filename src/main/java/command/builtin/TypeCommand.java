@@ -11,9 +11,10 @@ public record TypeCommand(String command) implements Command {
         final var value = storage.getParsers().get(command);
         final var executable = storage.getExecutables().get(command);
 
-        System.out.println(executable);
-
-        if (value != null && executable != null) return new CommandResponse("%s is a shell builtin".formatted(command));
+        if (value != null && executable != null) {
+            System.out.println(executable);
+            return new CommandResponse("%s is a shell builtin".formatted(command));
+        }
 
         if (executable != null) return new CommandResponse("%s is %s".formatted(command, executable));
 
