@@ -13,7 +13,7 @@ public record TypeCommand(String command) implements Command {
         return new CommandResponse(
                 switch (value) {
                     case null -> "%s: not found".formatted(command);
-                    default -> "%s is a shell builtin";
+                    default -> "%s is a shell builtin".formatted(command);
                 }
         );
     }
