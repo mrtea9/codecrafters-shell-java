@@ -27,7 +27,7 @@ public class CommandParser {
         String name = arguments.getFirst();
         final var executable = storage.getExecutables().get(name);
         if (executable != null) {
-            execute(executable);
+            executeProcess(executable, arguments.subList(1, arguments.size()));
             return null;
         }
 
@@ -42,9 +42,10 @@ public class CommandParser {
         return new ParsedCommand(arguments, command);
     }
 
-    private void execute(String executable) {
+    private void executeProcess(String executable, List<String> arguments) {
         try {
-            Process process = new ProcessBuilder(executable, "Maria").start();
+            Process process = new ProcessBuilder(executable, arguments.getFirst()).start();
+
             InputStream is = process.getInputStream();
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(isr);
@@ -56,7 +57,5 @@ public class CommandParser {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        System.out.println(executable);
     }
 }
