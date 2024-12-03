@@ -31,6 +31,12 @@ public class CommandParser {
             return null;
         }
 
+        final var executable = storage.getExecutables().get(name);
+        if (executable != null) {
+            System.out.println(executable);
+            return null;
+        }
+
         final var command = parser.apply(name, arguments.subList(1, arguments.size()));
 
         return new ParsedCommand(arguments, command);
