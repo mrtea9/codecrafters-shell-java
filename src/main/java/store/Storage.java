@@ -44,7 +44,7 @@ public class Storage {
         return (name, arguments) -> {
             if (arguments.size() != 1) throw new IllegalArgumentException("to many args");
 
-            //System.out.println(name);
+            System.out.println(name);
             //System.out.println(arguments);
 
             final var first = arguments.getFirst();
