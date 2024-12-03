@@ -7,7 +7,6 @@ import store.Storage;
 
 import java.util.*;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 public class CommandParser {
 
@@ -25,15 +24,15 @@ public class CommandParser {
         List<String> arguments = new ArrayList<>(Arrays.asList(input.split(" ", 2)));
 
         String name = arguments.getFirst();
-        final var parser = parsers.get(name);
-        if (parser == null) {
-            System.out.println("%s: command not found".formatted(name));
-            return null;
-        }
-
         final var executable = storage.getExecutables().get(name);
         if (executable != null) {
             System.out.println(executable);
+            return null;
+        }
+
+        final var parser = parsers.get(name);
+        if (parser == null) {
+            System.out.println("%s: command not found".formatted(name));
             return null;
         }
 
