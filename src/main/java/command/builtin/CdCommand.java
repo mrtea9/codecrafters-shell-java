@@ -12,9 +12,10 @@ public record CdCommand(String directoryName) implements Command {
     public CommandResponse execute(Storage storage) {
         String directoryInter = directoryName;
 
-        if (directoryInter.startsWith("./")) directoryInter = nextDirectory();
-
-        System.out.println(directoryInter);
+        if (directoryInter.startsWith("./")) {
+            directoryInter = nextDirectory();
+            System.out.println(directoryInter);
+        }
 
         File directory = new File(directoryInter);
 
