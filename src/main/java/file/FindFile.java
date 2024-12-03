@@ -17,7 +17,7 @@ public class FindFile {
             File[] list = file.listFiles();
             if (list == null) continue;
             for (var file1 : list) {
-                result.add(file1.getName());
+                if (file1.canExecute()) result.add(file1.getName());
             }
         }
 
