@@ -21,7 +21,7 @@ public class FindFile {
             if (list == null) continue;
             for (var file1 : list) {
                 Path path = Paths.get(file1.getAbsolutePath());
-                if (Files.isExecutable(path)) result.add(file1.getName());
+                if (Files.isExecutable(path)) result.add(file1.getAbsolutePath());
             }
         }
 
