@@ -43,7 +43,9 @@ public class Storage {
     }
 
     private BiFunction<String, List<String>, Command> noArgumentCommand(Supplier<Command> constructor) {
-        return (name, arguments) -> constructor.get();
+        return (name, arguments) -> {
+            return constructor.get();
+        };
     }
 
     private BiFunction<String, List<String>, Command> singleArgumentCommand(Function<String, Command> constructor) {
