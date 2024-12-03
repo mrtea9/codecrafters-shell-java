@@ -44,7 +44,15 @@ public class CommandParser {
 
     private void executeProcess(String executable, List<String> arguments) {
         try {
-            Process process = new ProcessBuilder(executable).start();
+            String argument;
+
+            if (!arguments.isEmpty()) {
+                argument = arguments.getFirst();
+            } else {
+                argument = "";
+            }
+
+            Process process = new ProcessBuilder(executable, argument).start();
 
             process.getInputStream().transferTo(System.out);
         } catch (IOException e) {
