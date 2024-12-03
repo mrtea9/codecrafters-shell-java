@@ -1,6 +1,7 @@
 import command.CommandParser;
 import store.Storage;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Repl {
@@ -10,6 +11,8 @@ public class Repl {
     private final Storage storage = new Storage(commandParser.getParsers());
 
     public void start() {
+
+        System.out.println(Arrays.toString(System.getenv("PATH").split(":")));
 
         while (true) {
             System.out.print("$ ");
