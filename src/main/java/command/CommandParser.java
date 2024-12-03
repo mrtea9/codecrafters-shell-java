@@ -31,6 +31,8 @@ public class CommandParser {
     public ParsedCommand parse(String input) {
         if (input.isEmpty()) throw new IllegalStateException("Input is empty");
 
+        System.out.println(System.getenv("PATH"));
+
         List<String> arguments = new ArrayList<>(Arrays.asList(input.split(" ", 2)));
 
         String name = arguments.getFirst();
