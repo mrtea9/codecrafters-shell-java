@@ -21,7 +21,7 @@ public class Repl {
 
             if (parsed == null) continue;
 
-            System.out.println(parsed.command().execute(storage));
+            if (parsed.command().execute(storage) != null) System.out.println(parsed.command().execute(storage));
         }
     }
 }
