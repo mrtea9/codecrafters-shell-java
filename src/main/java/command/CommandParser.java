@@ -25,10 +25,7 @@ public class CommandParser {
 
         String name = arguments.getFirst();
         final var executable = storage.getExecutables().get(name);
-        if (executable != null) {
-            System.out.println(executable);
-            return null;
-        }
+        if (executable != null) name = "executable";
 
         final var parser = parsers.get(name);
         if (parser == null) {
