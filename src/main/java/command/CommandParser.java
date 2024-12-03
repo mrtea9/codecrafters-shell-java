@@ -34,8 +34,6 @@ public class CommandParser {
             return null;
         }
 
-        System.out.println(name);
-
         final var command = parser.apply(name, arguments.subList(1, arguments.size()));
 
         return new ParsedCommand(arguments, command);
@@ -45,8 +43,8 @@ public class CommandParser {
         return (name, arguments) -> {
             if (arguments.size() != 1) throw new IllegalArgumentException("to many args");
 
-            //System.out.println(name);
-            //System.out.println(arguments);
+            System.out.println(name);
+            System.out.println(arguments);
 
             final var first = arguments.getFirst();
             return constructor.apply(first);
