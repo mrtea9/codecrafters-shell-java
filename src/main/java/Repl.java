@@ -13,8 +13,6 @@ public class Repl {
             System.out.print("$ ");
             String input = scanner.nextLine();
             commandParser.parse(input);
-
-            System.out.println(input + ": command not found");
         }
 
     }
