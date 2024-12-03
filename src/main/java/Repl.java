@@ -16,7 +16,7 @@ public class Repl {
 
             if (parsed == null) continue;
 
-            parsed.command().execute();
+            System.out.println(parsed.command().execute());
         }
 
     }
