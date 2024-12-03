@@ -15,11 +15,7 @@ public class Repl {
 
         while (true) {
             System.out.print("$ ");
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            System.out.println(scanner.hasNext());
             String input = scanner.nextLine();
 
             final var parsed = commandParser.parse(input);
