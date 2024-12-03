@@ -21,7 +21,7 @@ public class FindFile {
             }
         }
 
-        System.out.println("da");
+        System.out.println(result);
     }
 
 }
