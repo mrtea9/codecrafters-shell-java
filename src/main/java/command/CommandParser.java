@@ -2,6 +2,7 @@ package command;
 
 import command.builtin.EchoCommand;
 import command.builtin.ExitCommand;
+import command.builtin.TypeCommand;
 
 import java.util.*;
 import java.util.function.BiFunction;
@@ -15,6 +16,7 @@ public class CommandParser {
 
         register("exit", singleArgumentCommand(ExitCommand::new));
         register("echo", singleArgumentCommand(EchoCommand::new));
+        register("type", singleArgumentCommand(TypeCommand::new));
 
     }
 
