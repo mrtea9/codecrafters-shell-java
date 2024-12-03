@@ -27,7 +27,7 @@ public class CommandParser {
 
         String name = arguments[0];
         final var parser = parsers.get(name);
-        if (parser == null) System.out.println("%s: command not found".formatted(name));
+        if (parser == null) throw new IllegalStateException("%s: command not found".formatted(name));
 
         final var command = parser.apply(name, List.of("1"));
 
