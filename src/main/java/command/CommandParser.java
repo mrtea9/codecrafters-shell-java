@@ -26,7 +26,6 @@ public class CommandParser {
         if (input.isEmpty()) throw new IllegalStateException("Input is empty");
 
         List<String> arguments = new ArrayList<>(Arrays.asList(input.split(" ", 2)));
-        System.out.println(arguments);
 
         String name = arguments.getFirst();
         final var parser = parsers.get(name);
@@ -34,6 +33,8 @@ public class CommandParser {
             System.out.println("%s: command not found".formatted(name));
             return null;
         }
+
+        System.out.println(name);
 
         final var command = parser.apply(name, arguments.subList(1, arguments.size()));
 
