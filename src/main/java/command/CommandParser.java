@@ -25,7 +25,7 @@ public class CommandParser {
     public ParsedCommand parse(String input) {
         if (input.isEmpty()) throw new IllegalStateException("Input is empty");
 
-        List<String> arguments = new ArrayList<>(Arrays.asList(input.split(" ")));
+        List<String> arguments = new ArrayList<>(Arrays.asList(input.split(" ", 1)));
 
         String name = arguments.getFirst();
         final var parser = parsers.get(name);
