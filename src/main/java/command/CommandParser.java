@@ -2,10 +2,7 @@ package command;
 
 import store.Storage;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.*;
 import java.util.function.BiFunction;
 
@@ -24,7 +21,7 @@ public class CommandParser {
 
         List<String> arguments = new ArrayList<>(Arrays.asList(input.split(" ", 2)));
 
-        String name = arguments.get(0);
+        String name = arguments.getFirst();
         final var executable = storage.getExecutables().get(name);
         if (executable != null && !name.equals("pwd")) {
             executeProcess(executable, arguments.subList(1, arguments.size()));
