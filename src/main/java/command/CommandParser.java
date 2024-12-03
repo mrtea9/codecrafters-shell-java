@@ -24,7 +24,7 @@ public class CommandParser {
 
         List<String> arguments = new ArrayList<>(Arrays.asList(input.split(" ", 2)));
 
-        String name = arguments.getFirst();
+        String name = arguments.get(0);
         final var executable = storage.getExecutables().get(name);
         if (executable != null) {
             executeProcess(executable, arguments.subList(1, arguments.size()));
@@ -44,9 +44,9 @@ public class CommandParser {
 
     private void executeProcess(String executable, List<String> arguments) {
         try {
-            Process process = new ProcessBuilder(executable, arguments.getFirst()).start();
+            Process process = new ProcessBuilder(executable).start();
 
-            //process.getInputStream().transferTo(System.out);
+            process.getInputStream().transferTo(System.out);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

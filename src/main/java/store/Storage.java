@@ -55,7 +55,7 @@ public class Storage {
             //System.out.println(name);
             //System.out.println(arguments);
 
-            final var first = arguments.getFirst();
+            final var first = arguments.get(0);
             return constructor.apply(first);
         };
     }
