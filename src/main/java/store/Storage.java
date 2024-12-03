@@ -22,7 +22,6 @@ public class Storage {
     public Storage() {
         FindFile findFile = new FindFile();
         this.executables = findFile.parseFiles();
-
         register("pwd", noArgumentCommand(PwdCommand::new));
 
         register("exit", singleArgumentCommand(ExitCommand::new));
