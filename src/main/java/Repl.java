@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Repl {
 
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     private final CommandParser commandParser = new CommandParser();
 
     public void start() {
