@@ -7,6 +7,9 @@ public record EchoCommand(String message) implements Command {
 
     @Override
     public CommandResponse execute() {
+
+        System.out.println(message);
+
         return new CommandResponse(message);
     }
 
