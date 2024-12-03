@@ -4,15 +4,18 @@ import command.Command;
 import command.CommandResponse;
 import store.Storage;
 
-public record CdCommand(String directory) implements Command {
+import java.io.File;
+
+public record CdCommand(String directoryName) implements Command {
 
     @Override
     public CommandResponse execute(Storage storage) {
+        File directory = new File(directoryName);
 
-        boolean result = false;
+        if (!directory.exists()) return new CommandResponse("cd: <%s>: No such file or directory".formatted(directory);
 
-        result = System.setProperty("user.dir", directory) != null;
+        System.setProperty("user.dir", directoryName);
 
-        return result ? null : new CommandResponse("cd: <%s>: No such file or directory".formatted(directory));
+        return null;
     }
 }
