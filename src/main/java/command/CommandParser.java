@@ -1,5 +1,6 @@
 package command;
 
+import command.builtin.EchoCommand;
 import command.builtin.ExitCommand;
 
 import java.util.*;
@@ -11,7 +12,10 @@ public class CommandParser {
     private final Map<String, BiFunction<String, List<String>, Command>> parsers = new TreeMap<>();
 
     public CommandParser() {
+
         register("exit", singleArgumentCommand(ExitCommand::new));
+        register("echo", singleArgumentCommand(EchoCommand::new));
+
     }
 
     public void register(String name, BiFunction<String, List<String>, Command> parser) {
