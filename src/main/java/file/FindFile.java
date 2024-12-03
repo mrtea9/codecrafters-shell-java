@@ -12,8 +12,8 @@ public class FindFile {
     public void findFile() {
         List<String> result = new ArrayList<>();
 
-        for (int i = 0; i < pathArray.length; i++) {
-            File file = new File(pathArray[i]);
+        for (String s : pathArray) {
+            File file = new File(s);
             File[] list = file.listFiles();
             for (var file1 : list) {
                 result.add(file1.getName());
