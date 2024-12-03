@@ -32,9 +32,7 @@ public class CommandParser {
 
         final var command = parser.apply(name, arguments.subList(1, arguments.size()));
 
-        System.out.println(name);
-
-        return null;
+        return new ParsedCommand(arguments, command);
     }
 
     private BiFunction<String, List<String>, Command> singleArgumentCommand(Function<String, Command> constructor) {

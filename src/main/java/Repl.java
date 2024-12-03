@@ -12,7 +12,8 @@ public class Repl {
         while (true) {
             System.out.print("$ ");
             String input = scanner.nextLine();
-            commandParser.parse(input);
+            final var parsed = commandParser.parse(input);
+            parsed.command().execute();
         }
 
     }
