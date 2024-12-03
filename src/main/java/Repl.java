@@ -14,7 +14,8 @@ public class Repl {
             String input = scanner.nextLine();
             final var parsed = commandParser.parse(input);
             if (parsed == null) continue;
-            parsed.command().execute();
+
+            System.out.println(parsed.command().execute());
         }
 
     }
