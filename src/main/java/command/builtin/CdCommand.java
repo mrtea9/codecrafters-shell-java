@@ -10,8 +10,11 @@ public record CdCommand(String directoryName) implements Command {
 
     @Override
     public CommandResponse execute(Storage storage) {
-        File directory = new File(directoryName);
+        if (directoryName.startsWith("./")) {
+            System.out.println(directoryName);
+        }
 
+        File directory = new File(directoryName);
 
         if (!directory.exists()) return new CommandResponse("cd: %s: No such file or directory".formatted(directoryName));
 
