@@ -17,9 +17,6 @@ public class Repl {
             System.out.print("$ ");
             String input = scanner.nextLine();
 
-            FindFile ff = new FindFile();
-            ff.findFile();
-
             final var parsed = commandParser.parse(input);
 
             if (parsed == null) continue;

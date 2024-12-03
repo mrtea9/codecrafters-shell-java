@@ -5,27 +5,32 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FindFile {
 
     private final String[] pathArray = System.getenv("PATH").split(":");
 
-    public void findFile() {
-        List<String> result = new ArrayList<>();
+    public Map<String, String> parseFiles() {
+        Map<String, String> result = new HashMap<>();
 
-        for (String s : pathArray) {
-            File file = new File(s);
-            File[] list = file.listFiles();
-            if (list == null) continue;
-            for (var file1 : list) {
-                Path path = Paths.get(file1.getAbsolutePath());
-                if (Files.isExecutable(path)) result.add(file1.getAbsolutePath());
+        for (String pathString : pathArray) {
+            File directory = new File(pathString);
+            File[] listFiles = directory.listFiles();
+
+            if (listFiles == null) continue;
+
+            for (var file : listFiles) {
+                Path path = Paths.get(file.getAbsolutePath());
+                if (Files.isExecutable(path)) {
+                    result.put(file.getName(), file.getAbsolutePath());
+                }
             }
         }
 
-        System.out.println(result);
+        return result;
     }
 
 }
