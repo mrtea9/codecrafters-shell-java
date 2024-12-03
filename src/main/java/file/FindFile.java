@@ -13,6 +13,7 @@ public class FindFile {
         List<String> result = new ArrayList<>();
 
         for (int i = 0; i < pathArray.length; i++) {
+            System.out.println(pathArray[i]);
             File file = new File(pathArray[i]);
             File[] list = file.listFiles();
             for (var file1 : list) {
