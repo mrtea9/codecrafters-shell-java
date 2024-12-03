@@ -2,9 +2,7 @@ package command;
 
 import command.builtin.ExitCommand;
 
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -23,16 +21,16 @@ public class CommandParser {
     public ParsedCommand parse(String input) {
         if (input.isEmpty()) throw new IllegalStateException("Input is empty");
 
-        String[] arguments = input.split(" ");
+        List<String> arguments = new ArrayList<>(Arrays.asList(input.split(" ")));
 
-        String name = arguments[0];
+        String name = arguments.getFirst();
         final var parser = parsers.get(name);
         if (parser == null) {
             System.out.println("%s: command not found".formatted(name));
             return null;
         }
 
-        final var command = parser.apply(name, List.of("1"));
+        final var command = parser.apply(name, arguments.subList(1, arguments.size()));
 
         System.out.println(name);
 
