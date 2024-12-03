@@ -2,6 +2,7 @@ package command;
 
 import store.Storage;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.function.BiFunction;
 
@@ -39,6 +40,12 @@ public class CommandParser {
     }
 
     private void execute(String executable) {
+        try {
+            Runtime.getRuntime().exec(executable);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         System.out.println(executable);
     }
 }
