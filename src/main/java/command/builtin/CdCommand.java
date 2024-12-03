@@ -9,8 +9,10 @@ public record CdCommand(String directory) implements Command {
     @Override
     public CommandResponse execute(Storage storage) {
 
-        System.setProperty("user.dir", directory);
+        boolean result = false;
 
-        return null;
+        result = System.setProperty("user.dir", directory) != null;
+
+        return result ? null : new CommandResponse("cd: <%s>: No such file or directory".formatted(directory));
     }
 }
