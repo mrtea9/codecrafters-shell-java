@@ -7,7 +7,7 @@ public record ExitCommand(String status) implements Command {
 
     @Override
     public CommandResponse execute() {
-        System.out.println("sadadadsad");
+        System.exit(Integer.parseInt(status));
 
         return new CommandResponse(status);
     }

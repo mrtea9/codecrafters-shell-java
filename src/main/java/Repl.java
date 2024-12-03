@@ -16,6 +16,8 @@ public class Repl {
             if (parsed == null) continue;
 
             System.out.println(parsed.command().execute());
+
+            if (parsed.raw().getFirst().equals("exit")) exit 0;
         }
 
     }
