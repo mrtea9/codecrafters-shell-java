@@ -11,11 +11,12 @@ public class FindFile {
 
     public void findFile() {
         List<String> result = new ArrayList<>();
+
         for (int i = 0; i < pathArray.length; i++) {
             File file = new File(pathArray[i]);
             File[] list = file.listFiles();
             for (var file1 : list) {
-                result.add(file1.getName());
+                System.out.println(file1.getName());
             }
         }
 
