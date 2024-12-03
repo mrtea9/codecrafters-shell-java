@@ -13,6 +13,7 @@ public class Repl {
             System.out.print("$ ");
             String input = scanner.nextLine();
             final var parsed = commandParser.parse(input);
+            if (parsed == null) continue;
             parsed.command().execute();
         }
 
