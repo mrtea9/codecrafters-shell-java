@@ -6,13 +6,13 @@ import store.Storage;
 
 import java.util.List;
 
-public record ExecutableCommand(String name, String arguments) implements Command {
+public record ExecutableCommand(String name) implements Command {
 
     @Override
     public CommandResponse execute(Storage storage) {
 
         System.out.println("executable = %s".formatted(name));
-        System.out.println("executable = %s".formatted(arguments));
+       // System.out.println("executable = %s".formatted(arguments));
 
         return new CommandResponse("ok");
     }

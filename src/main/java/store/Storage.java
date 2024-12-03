@@ -25,7 +25,7 @@ public class Storage {
         register("exit", singleArgumentCommand(ExitCommand::new));
         register("echo", singleArgumentCommand(EchoCommand::new));
         register("type", singleArgumentCommand(TypeCommand::new));
-        register("executable", doubleArgumentCommand(ExecutableCommand::new));
+        register("executable", singleArgumentCommand(ExecutableCommand::new));
     }
 
     public Map<String, BiFunction<String, List<String>, Command>> getParsers() {
