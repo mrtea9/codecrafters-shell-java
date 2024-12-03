@@ -1,4 +1,5 @@
 import command.CommandParser;
+import command.CommandResponse;
 import file.FindFile;
 import store.Storage;
 
@@ -21,7 +22,10 @@ public class Repl {
 
             if (parsed == null) continue;
 
-            if (parsed.command().execute(storage) != null) System.out.println(parsed.command().execute(storage));
+            CommandResponse result = parsed.command().execute(storage);
+            if (result == null) continue;
+
+            System.out.println(result);
         }
     }
 }
