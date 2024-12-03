@@ -48,7 +48,7 @@ public class CommandParser {
 
             process.getInputStream().transferTo(System.out);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 }
