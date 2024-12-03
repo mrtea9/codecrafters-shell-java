@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class Repl {
 
     private final Scanner scanner = new Scanner(System.in);
-    private final CommandParser commandParser = new CommandParser();
-    private final Storage storage = new Storage(commandParser.getParsers());
+    private final Storage storage = new Storage();
+    private final CommandParser commandParser = new CommandParser(storage);
 
     public void start() {
 

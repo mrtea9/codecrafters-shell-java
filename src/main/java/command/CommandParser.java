@@ -3,6 +3,7 @@ package command;
 import command.builtin.EchoCommand;
 import command.builtin.ExitCommand;
 import command.builtin.TypeCommand;
+import store.Storage;
 
 import java.util.*;
 import java.util.function.BiFunction;
@@ -10,22 +11,12 @@ import java.util.function.Function;
 
 public class CommandParser {
 
-    private final Map<String, BiFunction<String, List<String>, Command>> parsers = new TreeMap<>();
+    private final Map<String, BiFunction<String, List<String>, Command>> parsers;
+    private final Storage storage;
 
-    public CommandParser() {
-
-        register("exit", singleArgumentCommand(ExitCommand::new));
-        register("echo", singleArgumentCommand(EchoCommand::new));
-        register("type", singleArgumentCommand(TypeCommand::new));
-
-    }
-
-    public Map<String, BiFunction<String, List<String>, Command>> getParsers() {
-        return parsers;
-    }
-
-    public void register(String name, BiFunction<String, List<String>, Command> parser) {
-        parsers.put(name, parser);
+    public CommandParser(Storage storage) {
+        this.storage = storage;
+        this.parsers = storage.getParsers();
     }
 
     public ParsedCommand parse(String input) {
@@ -44,18 +35,4 @@ public class CommandParser {
 
         return new ParsedCommand(arguments, command);
     }
-
-    private BiFunction<String, List<String>, Command> singleArgumentCommand(Function<String, Command> constructor) {
-        return (name, arguments) -> {
-            if (arguments.size() != 1) throw new IllegalArgumentException("to many args");
-
-            //System.out.println(name);
-            //System.out.println(arguments);
-
-            final var first = arguments.getFirst();
-            return constructor.apply(first);
-        };
-    }
-
-
 }
