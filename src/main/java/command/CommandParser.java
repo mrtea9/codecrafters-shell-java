@@ -1,8 +1,5 @@
 package command;
 
-import command.builtin.EchoCommand;
-import command.builtin.ExitCommand;
-import command.builtin.TypeCommand;
 import store.Storage;
 
 import java.util.*;
@@ -25,7 +22,10 @@ public class CommandParser {
 
         String name = arguments.getFirst();
         final var executable = storage.getExecutables().get(name);
-        if (executable != null) name = "executable";
+        if (executable != null) {
+            execute(executable);
+            return null;
+        }
 
         final var parser = parsers.get(name);
         if (parser == null) {
@@ -36,5 +36,9 @@ public class CommandParser {
         final var command = parser.apply(name, arguments.subList(1, arguments.size()));
 
         return new ParsedCommand(arguments, command);
+    }
+
+    private void execute(String executable) {
+        System.out.println(executable);
     }
 }

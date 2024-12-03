@@ -2,7 +2,6 @@ package store;
 
 import command.Command;
 import command.builtin.EchoCommand;
-import command.builtin.ExecutableCommand;
 import command.builtin.ExitCommand;
 import command.builtin.TypeCommand;
 import file.FindFile;
@@ -25,7 +24,6 @@ public class Storage {
         register("exit", singleArgumentCommand(ExitCommand::new));
         register("echo", singleArgumentCommand(EchoCommand::new));
         register("type", singleArgumentCommand(TypeCommand::new));
-        register("executable", singleArgumentCommand(ExecutableCommand::new));
     }
 
     public Map<String, BiFunction<String, List<String>, Command>> getParsers() {
@@ -44,22 +42,11 @@ public class Storage {
         return (name, arguments) -> {
             if (arguments.size() != 1) throw new IllegalArgumentException("to many args");
 
-            System.out.println(name);
+            //System.out.println(name);
             //System.out.println(arguments);
 
             final var first = arguments.getFirst();
             return constructor.apply(first);
-        };
-    }
-
-    private BiFunction<String, List<String>, Command> doubleArgumentCommand(BiFunction<String, String, Command> constructor) {
-        return (name, arguments) -> {
-            final var first = arguments.getFirst();
-            final var second = arguments.get(1);
-
-            System.out.println(arguments);
-
-            return constructor.apply(first, second);
         };
     }
 }
