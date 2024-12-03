@@ -39,7 +39,6 @@ public class CommandParser {
 
         final var command = parser.apply(name, arguments.subList(1, arguments.size()));
 
-        System.out.println("sad");
         return new ParsedCommand(arguments, command);
     }
 
