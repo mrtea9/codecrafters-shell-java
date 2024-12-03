@@ -2,7 +2,10 @@ package command;
 
 import store.Storage;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.util.function.BiFunction;
 
@@ -41,7 +44,15 @@ public class CommandParser {
 
     private void execute(String executable) {
         try {
-            Runtime.getRuntime().exec(executable);
+            Process process = new ProcessBuilder(executable, "Maria").start();
+            InputStream is = process.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
