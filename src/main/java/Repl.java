@@ -1,4 +1,5 @@
 import command.CommandParser;
+import file.FindFile;
 import store.Storage;
 
 import java.util.Arrays;
@@ -12,11 +13,13 @@ public class Repl {
 
     public void start() {
 
-        System.out.println(Arrays.toString(System.getenv("PATH").split(":")));
-
         while (true) {
             System.out.print("$ ");
             String input = scanner.nextLine();
+
+            FindFile ff = new FindFile();
+            ff.findFile();
+
             final var parsed = commandParser.parse(input);
 
             if (parsed == null) continue;
