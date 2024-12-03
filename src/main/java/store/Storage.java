@@ -3,6 +3,7 @@ package store;
 import command.Command;
 import command.builtin.EchoCommand;
 import command.builtin.ExitCommand;
+import command.builtin.PwdCommand;
 import command.builtin.TypeCommand;
 import file.FindFile;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class Storage {
 
@@ -20,6 +22,8 @@ public class Storage {
     public Storage() {
         FindFile findFile = new FindFile();
         this.executables = findFile.parseFiles();
+
+        register("pwd", noArgumentCommand(PwdCommand::new));
 
         register("exit", singleArgumentCommand(ExitCommand::new));
         register("echo", singleArgumentCommand(EchoCommand::new));
@@ -36,6 +40,10 @@ public class Storage {
 
     public void register(String name, BiFunction<String, List<String>, Command> parser) {
         parsers.put(name, parser);
+    }
+
+    private BiFunction<String, List<String>, Command> noArgumentCommand(Supplier<Command> constructor) {
+        return (name, arguments) -> constructor.get();
     }
 
     private BiFunction<String, List<String>, Command> singleArgumentCommand(Function<String, Command> constructor) {
