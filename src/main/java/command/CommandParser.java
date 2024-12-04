@@ -23,7 +23,7 @@ public class CommandParser {
 
         String name = arguments.getFirst();
         final var executable = storage.getExecutables().get(name);
-        if (executable != null && !name.equals("pwd") && !name.equals("cd")) {
+        if (executable != null && !name.equals("pwd") && !name.equals("cd") && !name.equals("echo")) {
             executeProcess(executable, arguments.subList(1, arguments.size()));
             return null;
         }
