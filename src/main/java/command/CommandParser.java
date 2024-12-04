@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class CommandParser {
@@ -21,7 +23,15 @@ public class CommandParser {
     public ParsedCommand parse(String input) {
         if (input.isEmpty()) throw new IllegalStateException("Input is empty");
 
-        List<String> arguments = new ArrayList<>(Arrays.asList(input.split(" (?=(?:[^']*'[^']*')*[^']*$)", 2)));
+        Pattern pattern = Pattern.compile("\"(.*?)\"|\\S+");
+        Matcher matcher = pattern.matcher(input);
+
+        // Collect matches into a list
+        String[] parts = matcher.results()
+                .map(match -> match.group(1) != null ? match.group(1) : match.group(0)) // Use the quoted part if it exists
+                .toArray(String[]::new);
+
+        List<String> arguments = new ArrayList<>(Arrays.asList(parts));
 
         String name = arguments.getFirst().substring(1, arguments.getFirst().length() - 1);
 
