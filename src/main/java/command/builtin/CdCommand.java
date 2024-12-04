@@ -41,9 +41,11 @@ public record CdCommand(String directoryName) implements Command {
 
     private String previousDirectory() {
         String currentDirectory = System.getProperty("user.dir");
+        String[] stepsBackArray = directoryName.split("/");
+        int stepsBack = stepsBackArray.length;
 
         System.out.println("current = " + currentDirectory);
-        System.out.println("directoryName = " + directoryName);
+        System.out.println("directoryName = " + directoryName + "; steps back = " + stepsBack);
 
         return "";
     }
