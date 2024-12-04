@@ -8,8 +8,14 @@ public record EchoCommand(String message) implements Command {
 
     @Override
     public CommandResponse execute(Storage storage) {
+        String finalMessage = message;
 
-        return new CommandResponse(message);
+        if (finalMessage.startsWith("'")) finalMessage = singleQuotes();
+
+        return new CommandResponse(finalMessage);
     }
 
+    private String singleQuotes() {
+        return message.substring(1, message.length() - 1);
+    }
 }
