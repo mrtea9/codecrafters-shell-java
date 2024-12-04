@@ -21,15 +21,12 @@ public class CommandParser {
     public ParsedCommand parse(String input) {
         if (input.isEmpty()) throw new IllegalStateException("Input is empty");
 
-        String[] argumentsRaw = input.split(" ");
-        String name = argumentsRaw[0];
+        List<String> arguments = new ArrayList<>(Arrays.asList(input.split(" ", 2)));
 
-        String[] arguments = Arrays.copyOfRange(argumentsRaw, 1, argumentsRaw.length);
-        List<String> argumentsList = Arrays.stream(input.split(" ", 2)).toList();
-
+        String name = arguments.getFirst();
         final var executable = storage.getExecutables().get(name);
-        if (executable != null && !name.equals("pwd") && !name.equals("cd") && !name.equals("echo")) {
-            executeProcess(executable, arguments);
+        if (executable != null && !name.equals("pwd") && !name.equals("cd")) {
+            executeProcess(executable, arguments.subList(1, arguments.size()));
             return null;
         }
 
@@ -39,15 +36,17 @@ public class CommandParser {
             return null;
         }
 
-        final var command = parser.apply(name, argumentsList.subList(1, argumentsList.size()));
+        final var command = parser.apply(name, arguments.subList(1, arguments.size()));
 
-        return new ParsedCommand(argumentsList, command);
+        return new ParsedCommand(arguments, command);
     }
 
-    private void executeProcess(String executable, String[] arguments) {
+    private void executeProcess(String executable, List<String> argumentsRaw) {
+        String[] arguments = argumentsRaw.get(0).split(" ");
+
         try {
             Path workingDirectory = Path.of(".").toAbsolutePath().normalize();
-            System.out.println(Arrays.toString(arguments).replaceAll(",", ""));
+            System.out.println(Arrays.toString(arguments));
 
             final var commandArguments = Stream
                     .concat(
