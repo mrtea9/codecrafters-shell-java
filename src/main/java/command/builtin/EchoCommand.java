@@ -13,7 +13,7 @@ public record EchoCommand(String message) implements Command {
         if (finalMessage.startsWith("'")) {
             finalMessage = singleQuotes();
         } else if (finalMessage.startsWith("\"")) {
-            finalMessage = message.replaceAll("\"", "");
+            finalMessage = doubleQuotes();
         } else {
             finalMessage = message.replaceAll("\\s+", " ");
         }
@@ -23,5 +23,30 @@ public record EchoCommand(String message) implements Command {
 
     private String singleQuotes() {
         return message.substring(1, message.length() - 1);
+    }
+
+    private String doubleQuotes() {
+        StringBuilder sb = new StringBuilder();
+        boolean startDouble = false;
+
+        for (int i = 0; i < message.length(); i++) {
+            final var firstChar = message.charAt(i);
+
+            if (firstChar == '"') {
+                i++;
+                startDouble = true;
+            }
+
+            if (firstChar == '"' && startDouble) {
+                i++;
+                startDouble = false;
+            }
+
+            if (startDouble) sb.append(message.charAt(i));
+        }
+
+        System.out.println(sb);
+
+        return sb.toString();
     }
 }
