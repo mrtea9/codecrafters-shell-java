@@ -43,7 +43,6 @@ public class CommandParser {
 
     private void executeProcess(String executable, List<String> argumentsRaw) {
         String[] arguments = argumentsRaw.getFirst().split("(?<=')\\s+(?=')");
-        System.out.println(Arrays.toString(arguments));
 
         try {
             Path workingDirectory = Path.of(System.getProperty("~")).toAbsolutePath().normalize();
@@ -54,6 +53,7 @@ public class CommandParser {
                             Arrays.stream(arguments)
                     )
                     .toList();
+            System.out.println(commandArguments);
             Process process = new ProcessBuilder(String.valueOf(commandArguments)).inheritIO().directory(workingDirectory.toFile()).start();
 
             process.waitFor();
