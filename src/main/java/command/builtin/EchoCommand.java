@@ -9,8 +9,10 @@ public record EchoCommand(String message) implements Command {
     @Override
     public CommandResponse execute(Storage storage) {
         String finalMessage = message;
+        System.out.println(finalMessage);
 
         if (finalMessage.startsWith("'")) finalMessage = singleQuotes();
+        System.out.println(finalMessage);
 
         return new CommandResponse(finalMessage);
     }
