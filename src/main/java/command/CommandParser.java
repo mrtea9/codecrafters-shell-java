@@ -45,7 +45,7 @@ public class CommandParser {
         String[] arguments = argumentsRaw.get(0).split("(?<=')\\s+(?=')");
 
         try {
-            Path workingDirectory = Path.of(System.getProperty(".")).toAbsolutePath().normalize();
+            Path workingDirectory = Path.of(System.getProperty("~")).toAbsolutePath().normalize();
 
             final var commandArguments = Stream
                     .concat(
