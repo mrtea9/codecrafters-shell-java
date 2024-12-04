@@ -18,6 +18,7 @@ public record EchoCommand(String message) implements Command {
             finalMessage = message.replaceAll("\\s+", " ");
         }
 
+
         return new CommandResponse(finalMessage);
     }
 
