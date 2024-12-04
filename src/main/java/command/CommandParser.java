@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.stream.Stream;
 
 public class CommandParser {
 
@@ -45,14 +46,14 @@ public class CommandParser {
             String argument;
             Path workingDirectory = Path.of(".").toAbsolutePath().normalize();
             System.out.println(executable);
-
-            if (!arguments.isEmpty()) {
-                argument = arguments.getFirst();
-            } else {
-                argument = "";
-            }
-
-            Process process = new ProcessBuilder(executable, argument).inheritIO().directory(workingDirectory.toFile()).start();
+            final var commandArguments = Stream
+                    .concat(
+                            Stream.of(executable.toString()),
+                            Arrays.stream(arguments.toArray())
+                    )
+                    .toList();
+            System.out.println(commandArguments);
+            Process process = new ProcessBuilder(executable).inheritIO().directory(workingDirectory.toFile()).start();
 
             process.waitFor();
             process.getInputStream().transferTo(System.out);
