@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public class Storage {
 
     private final Map<String, BiFunction<String, List<String>, Command>> parsers = new TreeMap<>();
-    private final Map<String, String> executables;
+    private Map<String, String> executables;
 
     public Storage() {
         FindFile findFile = new FindFile();
@@ -26,6 +26,11 @@ public class Storage {
         register("echo", singleArgumentCommand(EchoCommand::new));
         register("type", singleArgumentCommand(TypeCommand::new));
         register("cd", singleArgumentCommand(CdCommand::new));
+    }
+
+    public void updateExecutables() {
+        FindFile findFile = new FindFile();
+        this.executables = findFile.parseFiles();
     }
 
     public Map<String, BiFunction<String, List<String>, Command>> getParsers() {
