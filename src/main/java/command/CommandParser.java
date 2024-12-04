@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class CommandParser {
@@ -21,7 +23,7 @@ public class CommandParser {
     public ParsedCommand parse(String input) {
         if (input.isEmpty()) throw new IllegalStateException("Input is empty");
 
-        List<String> arguments = new ArrayList<>(Arrays.asList(input.split(" ", 2)));
+        List<String> arguments = splitArguments(input);
 
         String name = arguments.getFirst();
 
@@ -77,5 +79,25 @@ public class CommandParser {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static List<String> splitArguments(String input) {
+        List<String> arguments = new ArrayList<>();
+        Pattern pattern = Pattern.compile(
+                "\"(\\\\.|[^\"])*\"|'(\\\\.|[^'])*'|\\S+"
+        );
+        Matcher matcher = pattern.matcher(input);
+
+        while (matcher.find()) {
+            String match = matcher.group();
+            if ((match.startsWith("\"") && match.endsWith("\"")) ||
+                    (match.startsWith("'") && match.endsWith("'"))) {
+                // Remove surrounding quotes but keep escaped characters
+                match = match.substring(1, match.length() - 1).replace("\\\"", "\"").replace("\\'", "'");
+            }
+            arguments.add(match);
+        }
+
+        return arguments;
     }
 }
