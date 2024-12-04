@@ -39,6 +39,7 @@ public class CommandParser {
             return null;
         }
         System.out.println(Arrays.stream(argumentsList.toArray()).toList());
+        System.out.println(argumentsList);
 
         final var command = parser.apply(name, argumentsList.subList(0, argumentsList.size()));
 
