@@ -43,9 +43,7 @@ public class CommandParser {
 
     private void executeProcess(String executable, List<String> arguments) {
         try {
-
-            Path workingDirectory = Path.of("/tmp/").toAbsolutePath().normalize();
-            System.out.println(workingDirectory);
+            Path workingDirectory = Path.of("~").toAbsolutePath().normalize();
 
             final var commandArguments = Stream
                     .concat(
