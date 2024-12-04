@@ -23,7 +23,7 @@ public class CommandParser {
 
         List<String> arguments = new ArrayList<>(Arrays.asList(input.split(" (?=(?:[^']*'[^']*')*[^']*$)", 2)));
 
-        String name = arguments.getFirst().replaceAll("'", "");
+        String name = arguments.getFirst().substring(1, arguments.getFirst().length() - 1);
 
         //System.out.println(name);
         storage.updateExecutables();
