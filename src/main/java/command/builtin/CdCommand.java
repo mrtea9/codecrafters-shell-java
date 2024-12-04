@@ -49,7 +49,8 @@ public record CdCommand(String directoryName) implements Command {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < currentDirectoryArray.length - stepsBack; i++) {
-            sb.append(currentDirectoryArray[i]).append("/");
+            sb.append(currentDirectoryArray[i]);
+            if (i != currentDirectoryArray.length - stepsBack - 1) sb.append("/");
         }
 
         return sb.toString();
