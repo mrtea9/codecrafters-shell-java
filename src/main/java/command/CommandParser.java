@@ -90,10 +90,12 @@ public class CommandParser {
 
         while (matcher.find()) {
             String match = matcher.group();
-            if ((match.startsWith("\"") && match.endsWith("\"")) ||
-                    (match.startsWith("'") && match.endsWith("'"))) {
-                // Remove surrounding quotes but keep escaped characters
-                match = match.substring(1, match.length() - 1).replace("\\\"", "\"").replace("\\'", "'");
+            if (match.startsWith("\"") && match.endsWith("\"")) {
+                // Keep escaped characters and remove surrounding double quotes
+                match = match.substring(1, match.length() - 1).replace("\\\"", "\"");
+            } else if (match.startsWith("'") && match.endsWith("'")) {
+                // Keep escaped characters and remove surrounding single quotes
+                match = match.substring(1, match.length() - 1).replace("\\'", "'");
             }
             arguments.add(match);
         }
