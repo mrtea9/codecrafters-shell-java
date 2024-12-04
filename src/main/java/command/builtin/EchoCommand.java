@@ -13,8 +13,8 @@ public record EchoCommand(String message) implements Command {
         if (finalMessage.startsWith("'")) {
             finalMessage = singleQuotes();
         } else {
-            System.out.println("este");
             finalMessage = message.strip();
+            System.out.println(finalMessage);
         }
 
         return new CommandResponse(finalMessage);
