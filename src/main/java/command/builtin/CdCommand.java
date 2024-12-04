@@ -5,6 +5,7 @@ import command.CommandResponse;
 import store.Storage;
 
 import java.io.File;
+import java.util.Arrays;
 
 public record CdCommand(String directoryName) implements Command {
 
@@ -42,7 +43,11 @@ public record CdCommand(String directoryName) implements Command {
     private String previousDirectory() {
         String currentDirectory = System.getProperty("user.dir");
         String[] stepsBackArray = directoryName.split("/");
+        String[] currentDirectoryArray = currentDirectory.split("/");
         int stepsBack = stepsBackArray.length;
+
+        System.out.println(Arrays.toString(currentDirectoryArray));
+        System.out.println(Arrays.toString(stepsBackArray));
 
         System.out.println("current = " + currentDirectory);
         System.out.println("directoryName = " + directoryName + "; steps back = " + stepsBack);
