@@ -42,6 +42,8 @@ public class CommandParser {
     }
 
     private void executeProcess(String executable, List<String> argumentsRaw) {
+        //System.out.println();
+
         String[] arguments = argumentsRaw.getFirst().split("(?<=')\\s+(?=')");
         if (arguments.length == argumentsRaw.size()) {
             arguments = argumentsRaw.getFirst().split("(?<=\")\\s+(?=\")");
