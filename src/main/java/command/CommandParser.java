@@ -43,7 +43,7 @@ public class CommandParser {
 
     private void executeProcess(String executable, List<String> argumentsRaw) {
         System.out.println(argumentsRaw);
-        String[] arguments = argumentsRaw.get(0).split(" ");
+        String[] arguments = argumentsRaw.get(0).split("'\\s*'");
         System.out.println(Arrays.toString(arguments));
 
         try {
