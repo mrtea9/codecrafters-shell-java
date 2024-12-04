@@ -14,6 +14,8 @@ public record EchoCommand(String message) implements Command {
             finalMessage = singleQuotes();
         } else if (finalMessage.startsWith("\"")) {
             finalMessage = doubleQuotes();
+        } else if (finalMessage.contains("\\")) {
+            finalMessage = blackSlash();
         } else {
             finalMessage = message.replaceAll("\\s+", " ");
         }
@@ -49,6 +51,12 @@ public record EchoCommand(String message) implements Command {
 
             sb.append(firstChar);
         }
+
+        return sb.toString();
+    }
+
+    private String blackSlash() {
+        StringBuilder sb = new StringBuilder("este");
 
         return sb.toString();
     }
