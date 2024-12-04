@@ -53,10 +53,10 @@ public class CommandParser {
                             Arrays.stream(arguments)
                     )
                     .toList();
-            System.out.println(commandArguments);
-            Process process = new ProcessBuilder(String.valueOf(commandArguments)).inheritIO().directory(workingDirectory.toFile()).start();
+            Process process = new ProcessBuilder(commandArguments).inheritIO().directory(workingDirectory.toFile()).start();
 
             process.waitFor();
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } catch (InterruptedException e) {
