@@ -43,6 +43,7 @@ public class CommandParser {
 
     private void executeProcess(String executable, List<String> argumentsRaw) {
         String[] arguments = argumentsRaw.get(0).split(" ");
+        System.out.println(Arrays.toString(arguments));
 
         try {
             Path workingDirectory = Path.of(".").toAbsolutePath().normalize();
