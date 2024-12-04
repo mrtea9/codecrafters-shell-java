@@ -13,7 +13,7 @@ public record EchoCommand(String message) implements Command {
         if (finalMessage.startsWith("'")) {
             finalMessage = singleQuotes();
         } else {
-            finalMessage = message.trim();
+            finalMessage = message.strip();
         }
 
         return new CommandResponse(finalMessage);
