@@ -21,12 +21,15 @@ public class CommandParser {
     public ParsedCommand parse(String input) {
         if (input.isEmpty()) throw new IllegalStateException("Input is empty");
 
-        List<String> arguments = new ArrayList<>(Arrays.asList(input.split(" ", 2)));
+        String[] argumentsRaw = input.split(" ");
+        String name = argumentsRaw[0];
 
-        String name = arguments.getFirst();
+        String[] arguments = Arrays.copyOfRange(argumentsRaw, 1, argumentsRaw.length);
+        List<String> argumentsList = Arrays.stream(arguments).toList();
+
         final var executable = storage.getExecutables().get(name);
         if (executable != null && !name.equals("pwd") && !name.equals("cd") && !name.equals("echo")) {
-            executeProcess(executable, arguments.subList(1, arguments.size()));
+            executeProcess(executable, arguments);
             return null;
         }
 
@@ -36,19 +39,19 @@ public class CommandParser {
             return null;
         }
 
-        final var command = parser.apply(name, arguments.subList(1, arguments.size()));
+        final var command = parser.apply(name, argumentsList.subList(1, arguments.size()));
 
-        return new ParsedCommand(arguments, command);
+        return new ParsedCommand(argumentsList, command);
     }
 
-    private void executeProcess(String executable, List<String> arguments) {
+    private void executeProcess(String executable, String[] arguments) {
         try {
             Path workingDirectory = Path.of(".").toAbsolutePath().normalize();
 
             final var commandArguments = Stream
                     .concat(
-                            Stream.of(executable),
-                            Arrays.stream(arguments.get(0).split(" "))
+                            Stream.of(executable.toString()),
+                            Arrays.stream(arguments).skip(1)
                     )
                     .toList();
             Process process = new ProcessBuilder(String.valueOf(commandArguments)).inheritIO().directory(workingDirectory.toFile()).start();
