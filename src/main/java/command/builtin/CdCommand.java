@@ -17,6 +17,10 @@ public record CdCommand(String directoryName) implements Command {
             //System.out.println(directoryString);
         }
 
+        if (directoryString.startsWith("../")) {
+            directoryString = previousDirectory();
+        }
+
         File directory = new File(directoryString);
 
         if (!directory.exists()) return new CommandResponse("cd: %s: No such file or directory".formatted(directoryString));
@@ -33,5 +37,13 @@ public record CdCommand(String directoryName) implements Command {
         //System.out.println("directoryName = " + directoryName);
 
         return "%s/%s".formatted(System.getProperty("user.dir"), directoryName.substring(2));
+    }
+
+    private String previousDirectory() {
+        String currentDirectory = System.getProperty("user.dir");
+
+        System.out.println("current = " + currentDirectory);
+
+        return "";
     }
 }
