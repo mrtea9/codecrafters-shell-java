@@ -13,7 +13,6 @@ public class Repl {
     private final CommandParser commandParser = new CommandParser(storage);
 
     public void start() {
-
         while (true) {
             System.out.print("$ ");
             String input = scanner.nextLine();
