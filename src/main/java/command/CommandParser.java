@@ -48,15 +48,13 @@ public class CommandParser {
             System.out.println(executable);
             final var commandArguments = Stream
                     .concat(
-                            Stream.of(executable.toString()),
+                            Stream.of(executable),
                             Arrays.stream(arguments.toArray())
                     )
                     .toList();
-            System.out.println(commandArguments);
-            Process process = new ProcessBuilder(executable).inheritIO().directory(workingDirectory.toFile()).start();
+            Process process = new ProcessBuilder(String.valueOf(commandArguments)).inheritIO().directory(workingDirectory.toFile()).start();
 
             process.waitFor();
-            process.getInputStream().transferTo(System.out);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } catch (InterruptedException e) {
