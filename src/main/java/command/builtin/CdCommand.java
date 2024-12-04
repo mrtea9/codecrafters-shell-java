@@ -13,14 +13,9 @@ public record CdCommand(String directoryName) implements Command {
     public CommandResponse execute(Storage storage) {
         String directoryString = directoryName;
 
-        if (directoryString.startsWith("./")) {
-            directoryString = nextDirectory();
-            //System.out.println(directoryString);
-        }
+        if (directoryString.startsWith("./")) directoryString = nextDirectory();
 
-        if (directoryString.startsWith("../")) {
-            directoryString = previousDirectory();
-        }
+        if (directoryString.startsWith("../")) directoryString = previousDirectory();
 
         File directory = new File(directoryString);
 
@@ -32,10 +27,6 @@ public record CdCommand(String directoryName) implements Command {
     }
 
     private String nextDirectory() {
-        String currentDirectory = System.getProperty("user.dir");
-
-        //System.out.println("current = " + currentDirectory);
-        //System.out.println("directoryName = " + directoryName);
 
         return "%s/%s".formatted(System.getProperty("user.dir"), directoryName.substring(2));
     }
