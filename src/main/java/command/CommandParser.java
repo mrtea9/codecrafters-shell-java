@@ -22,11 +22,10 @@ public class CommandParser {
         if (input.isEmpty()) throw new IllegalStateException("Input is empty");
 
         List<String> arguments = new ArrayList<>(Arrays.asList(input.split(" ", 2)));
-        System.out.println(arguments);
 
         String name = arguments.getFirst();
         final var executable = storage.getExecutables().get(name);
-        if (executable != null && !name.equals("pwd") && !name.equals("cd")) {
+        if (executable != null && !name.equals("pwd") && !name.equals("cd") && !name.equals("echo")) {
             executeProcess(executable, arguments.subList(1, arguments.size()));
             return null;
         }
