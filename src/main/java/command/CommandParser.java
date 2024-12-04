@@ -39,7 +39,7 @@ public class CommandParser {
             return null;
         }
 
-        final var command = parser.apply(name, argumentsList.subList(1, arguments.size()));
+        final var command = parser.apply(name, argumentsList.subList(1, argumentsList.size()));
 
         return new ParsedCommand(argumentsList, command);
     }
