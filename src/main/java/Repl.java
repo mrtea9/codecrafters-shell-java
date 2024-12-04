@@ -17,8 +17,6 @@ public class Repl {
             System.out.print("$ ");
             String input = scanner.nextLine();
 
-            storage.updateExecutables();
-
             final var parsed = commandParser.parse(input);
 
             if (parsed == null) continue;
