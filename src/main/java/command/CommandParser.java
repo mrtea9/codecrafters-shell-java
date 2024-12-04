@@ -3,6 +3,7 @@ package command;
 import store.Storage;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.function.BiFunction;
 
@@ -42,6 +43,7 @@ public class CommandParser {
     private void executeProcess(String executable, List<String> arguments) {
         try {
             String argument;
+            Path workingDirectory = Path.of(".").toAbsolutePath().normalize();
 
             if (!arguments.isEmpty()) {
                 argument = arguments.getFirst();
@@ -49,13 +51,14 @@ public class CommandParser {
                 argument = "";
             }
 
-            Process process = new ProcessBuilder(executable, argument).start();
+            Process process = new ProcessBuilder(executable, argument).inheritIO().directory(workingDirectory.toFile()).start();
 
-            System.out.println(executable + " " + argument);
-
+            process.waitFor();
             process.getInputStream().transferTo(System.out);
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }
