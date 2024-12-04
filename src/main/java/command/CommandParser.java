@@ -44,6 +44,7 @@ public class CommandParser {
         try {
             String argument;
             Path workingDirectory = Path.of(".").toAbsolutePath().normalize();
+            System.out.println(executable);
 
             if (!arguments.isEmpty()) {
                 argument = arguments.getFirst();
