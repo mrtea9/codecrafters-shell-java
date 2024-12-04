@@ -5,13 +5,14 @@ import command.CommandResponse;
 import store.Storage;
 
 import java.io.File;
-import java.util.Arrays;
 
 public record CdCommand(String directoryName) implements Command {
 
     @Override
     public CommandResponse execute(Storage storage) {
         String directoryString = directoryName;
+
+        if (directoryString.startsWith("~")) directoryString = homeDirectory();
 
         if (directoryString.startsWith("./")) directoryString = nextDirectory();
 
@@ -45,5 +46,10 @@ public record CdCommand(String directoryName) implements Command {
         }
 
         return sb.toString();
+    }
+
+    private String homeDirectory() {
+
+        return System.getenv("HOME");
     }
 }
