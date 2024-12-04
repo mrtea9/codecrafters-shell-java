@@ -13,8 +13,7 @@ public record EchoCommand(String message) implements Command {
         if (finalMessage.startsWith("'")) {
             finalMessage = singleQuotes();
         } else {
-            finalMessage = message.strip();
-            System.out.println(finalMessage);
+            finalMessage = message.replaceAll("\\s+", " ");
         }
 
         return new CommandResponse(finalMessage);
