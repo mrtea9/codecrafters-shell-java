@@ -32,6 +32,10 @@ public record EchoCommand(String message) implements Command {
         for (int i = 0; i < message.length(); i++) {
             final var firstChar = message.charAt(i);
 
+            if (!startDouble && firstChar == ' ') {
+                continue;
+            }
+
             if (startDouble && firstChar == '"') {
                 startDouble = false;
                 continue;
