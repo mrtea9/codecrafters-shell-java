@@ -47,6 +47,12 @@ public record EchoCommand(String message) implements Command {
                 continue;
             }
 
+            if (firstChar == '\\') {
+                sb.append(message.charAt(i + 1));
+                i++;
+                continue;
+            }
+
             sb.append(firstChar);
         }
 
