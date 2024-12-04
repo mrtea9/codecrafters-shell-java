@@ -56,7 +56,18 @@ public record EchoCommand(String message) implements Command {
     }
 
     private String blackSlash() {
-        StringBuilder sb = new StringBuilder("este");
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < message.length(); i++) {
+            final var firstChar = message.charAt(i);
+
+            if (firstChar == '\\') {
+                sb.append(message.charAt(i + 1));
+                continue;
+            }
+
+            sb.append(firstChar);
+        }
 
         return sb.toString();
     }
