@@ -45,6 +45,7 @@ public class CommandParser {
         try {
 
             Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
+            System.out.println(workingDirectory);
 
             final var commandArguments = Stream
                     .concat(
