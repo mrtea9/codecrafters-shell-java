@@ -43,6 +43,7 @@ public record CdCommand(String directoryName) implements Command {
         String currentDirectory = System.getProperty("user.dir");
 
         System.out.println("current = " + currentDirectory);
+        System.out.println("directoryName = " + directoryName);
 
         return "";
     }
