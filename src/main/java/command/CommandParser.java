@@ -49,12 +49,12 @@ public class CommandParser {
                 argument = "";
             }
 
-            System.out.println(argument);
-
             Process process = new ProcessBuilder(executable, argument).start();
 
+            process.waitFor();
+
             process.getInputStream().transferTo(System.out);
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             System.out.println(e.getMessage());
         }
     }
