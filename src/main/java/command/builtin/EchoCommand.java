@@ -37,12 +37,12 @@ public record EchoCommand(String message) implements Command {
                 startDouble = true;
             }
 
+            if (startDouble) sb.append(message.charAt(i));
+
             if (firstChar == '"' && startDouble) {
                 i++;
                 startDouble = false;
             }
-
-            if (startDouble) sb.append(message.charAt(i));
         }
 
         System.out.println(sb);
