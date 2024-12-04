@@ -52,7 +52,7 @@ public class CommandParser {
             Process process = new ProcessBuilder(executable, argument).inheritIO().start();
 
             process.getInputStream().transferTo(System.out);
-        } catch (IOException) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
