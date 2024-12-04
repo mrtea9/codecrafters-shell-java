@@ -48,7 +48,7 @@ public class CommandParser {
             final var commandArguments = Stream
                     .concat(
                             Stream.of(executable),
-                            Arrays.stream(arguments.get(1).split(" "))
+                            Arrays.stream(arguments.get(0).split(" "))
                     )
                     .toList();
             Process process = new ProcessBuilder(String.valueOf(commandArguments)).inheritIO().directory(workingDirectory.toFile()).start();
