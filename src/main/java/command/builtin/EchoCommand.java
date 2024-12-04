@@ -11,7 +11,6 @@ public record EchoCommand(String message) implements Command {
         String finalMessage = message;
 
         if (finalMessage.startsWith("'")) finalMessage = singleQuotes();
-        System.out.println("este");
 
         return new CommandResponse(finalMessage);
     }
