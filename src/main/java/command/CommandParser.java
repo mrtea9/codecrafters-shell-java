@@ -43,12 +43,18 @@ public class CommandParser {
 
     private void executeProcess(String executable, List<String> argumentsRaw) {
         String[] arguments = argumentsRaw.getFirst().split("(?<=')\\s+(?=')");
-        System.out.println(argumentsRaw);
-        System.out.println(Arrays.toString(arguments));
+        if (arguments.length == argumentsRaw.size()) {
+            arguments = argumentsRaw.getFirst().split("(?<=\")\\s+(?=\")");
 
-        for (int i = 0; i < arguments.length; i++) {
-            arguments[i] = arguments[i].replace("'", "").trim();
+            for (int i = 0; i < arguments.length; i++) {
+                arguments[i] = arguments[i].replace("\"", "").trim();
+            }
+        } else {
+            for (int i = 0; i < arguments.length; i++) {
+                arguments[i] = arguments[i].replace("'", "").trim();
+            }
         }
+
 
         try {
             Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
