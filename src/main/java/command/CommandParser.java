@@ -38,7 +38,7 @@ public class CommandParser {
             System.out.println("%s: command not found".formatted(name));
             return null;
         }
-        System.out.println(argumentsList);
+        System.out.println(Arrays.stream(argumentsList.toArray()));
 
         final var command = parser.apply(name, argumentsList.subList(0, argumentsList.size()));
 
