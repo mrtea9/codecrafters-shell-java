@@ -12,6 +12,8 @@ public record EchoCommand(String message) implements Command {
 
         if (finalMessage.startsWith("'")) {
             finalMessage = singleQuotes();
+        } else if (finalMessage.startsWith("\"")) {
+            finalMessage = message.replaceAll("\"", "");
         } else {
             finalMessage = message.replaceAll("\\s+", " ");
         }
