@@ -46,19 +46,12 @@ public record CdCommand(String directoryName) implements Command {
         String[] currentDirectoryArray = currentDirectory.split("/");
         int stepsBack = stepsBackArray.length;
 
-        System.out.println(Arrays.toString(currentDirectoryArray));
-        System.out.println(Arrays.toString(stepsBackArray));
-
-        System.out.println("current = " + currentDirectory);
-        System.out.println("directoryName = " + directoryName + "; steps back = " + stepsBack);
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < currentDirectoryArray.length - stepsBack; i++) {
             sb.append(currentDirectoryArray[i]).append("/");
         }
 
-        System.out.println(sb);
-
-        return "";
+        return sb.toString();
     }
 }
