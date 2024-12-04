@@ -47,11 +47,11 @@ public class CommandParser {
     private void executeProcess(String executable, String[] arguments) {
         try {
             Path workingDirectory = Path.of(".").toAbsolutePath().normalize();
-            System.out.println(Arrays.toString(arguments));
+            System.out.println(Arrays.toString(arguments).replaceAll(",", ""));
 
             final var commandArguments = Stream
                     .concat(
-                            Stream.of(executable.toString()),
+                            Stream.of(executable),
                             Arrays.stream(arguments).skip(1)
                     )
                     .toList();
