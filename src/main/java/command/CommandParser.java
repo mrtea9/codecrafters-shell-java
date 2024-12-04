@@ -2,7 +2,6 @@ package command;
 
 import store.Storage;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.function.BiFunction;
@@ -50,7 +49,7 @@ public class CommandParser {
                 argument = "";
             }
 
-            Process process = new ProcessBuilder(executable, argument).inheritIO().directory(new File(System.getProperty("user.dir"))).start();
+            Process process = new ProcessBuilder(executable, argument).start();
 
             process.getInputStream().transferTo(System.out);
         } catch (IOException e) {
