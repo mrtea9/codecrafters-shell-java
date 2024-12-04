@@ -25,7 +25,7 @@ public class CommandParser {
         String name = argumentsRaw[0];
 
         String[] arguments = Arrays.copyOfRange(argumentsRaw, 1, argumentsRaw.length);
-        List<String> argumentsList = Arrays.stream(input.split(" ", 1)).toList();
+        List<String> argumentsList = Arrays.stream(input.split(" ", 2)).toList();
 
         final var executable = storage.getExecutables().get(name);
         if (executable != null && !name.equals("pwd") && !name.equals("cd") && !name.equals("echo")) {
