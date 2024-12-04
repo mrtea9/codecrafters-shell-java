@@ -10,7 +10,11 @@ public record EchoCommand(String message) implements Command {
     public CommandResponse execute(Storage storage) {
         String finalMessage = message;
 
-        if (finalMessage.startsWith("'")) finalMessage = singleQuotes();
+        if (finalMessage.startsWith("'")) {
+            finalMessage = singleQuotes();
+        } else {
+            finalMessage = message.trim();
+        }
 
         return new CommandResponse(finalMessage);
     }
