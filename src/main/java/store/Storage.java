@@ -31,7 +31,6 @@ public class Storage {
     public void updateExecutables() {
         FindFile findFile = new FindFile();
         this.executables = findFile.parseFiles();
-        System.out.println(this.executables);
     }
 
     public Map<String, BiFunction<String, List<String>, Command>> getParsers() {
