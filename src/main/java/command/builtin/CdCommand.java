@@ -10,23 +10,28 @@ public record CdCommand(String directoryName) implements Command {
 
     @Override
     public CommandResponse execute(Storage storage) {
-        String directoryInter = directoryName;
+        String directoryString = directoryName;
 
-        if (directoryInter.startsWith("./")) {
-            directoryInter = nextDirectory();
-            System.out.println(directoryInter);
+        if (directoryString.startsWith("./")) {
+            directoryString = nextDirectory();
+            System.out.println(directoryString);
         }
 
-        File directory = new File(directoryInter);
+        File directory = new File(directoryString);
 
-        if (!directory.exists()) return new CommandResponse("cd: %s: No such file or directory".formatted(directoryInter));
+        if (!directory.exists()) return new CommandResponse("cd: %s: No such file or directory".formatted(directoryString));
 
-        System.setProperty("user.dir", directoryInter);
+        System.setProperty("user.dir", directoryString);
 
         return null;
     }
 
     private String nextDirectory() {
+        String currentDirectory = System.getProperty("user.dir");
+
+       System.out.println("current = " + currentDirectory);
+       System.out.println("directoryName = " + directoryName);
+
         return "%s/%s".formatted(System.getProperty("user.dir"), directoryName.substring(2));
     }
 }
