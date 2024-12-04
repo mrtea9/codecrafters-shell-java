@@ -37,8 +37,6 @@ public record EchoCommand(String message) implements Command {
             sb.append(firstChar);
         }
 
-        System.out.println(sb);
-
         return sb.toString();
     }
 }
