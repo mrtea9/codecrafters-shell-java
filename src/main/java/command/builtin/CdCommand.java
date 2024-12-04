@@ -14,7 +14,7 @@ public record CdCommand(String directoryName) implements Command {
 
         if (directoryString.startsWith("./")) {
             directoryString = nextDirectory();
-            System.out.println(directoryString);
+            //System.out.println(directoryString);
         }
 
         File directory = new File(directoryString);
@@ -29,8 +29,8 @@ public record CdCommand(String directoryName) implements Command {
     private String nextDirectory() {
         String currentDirectory = System.getProperty("user.dir");
 
-       System.out.println("current = " + currentDirectory);
-       System.out.println("directoryName = " + directoryName);
+        //System.out.println("current = " + currentDirectory);
+        //System.out.println("directoryName = " + directoryName);
 
         return "%s/%s".formatted(System.getProperty("user.dir"), directoryName.substring(2));
     }
