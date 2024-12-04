@@ -42,10 +42,11 @@ public class CommandParser {
     }
 
     private void executeProcess(String executable, List<String> argumentsRaw) {
-        String[] arguments = argumentsRaw.getFirst().split("(?<=\")\\s+(?=\")");
+        String[] arguments = argumentsRaw.getFirst().split("(?<=')\\s+(?=')");
+        System.out.println(Arrays.toString(arguments));
 
         for (int i = 0; i < arguments.length; i++) {
-            arguments[i] = arguments[i].replace("\"", "").trim();
+            arguments[i] = arguments[i].replace("'", "").trim();
         }
 
         try {
