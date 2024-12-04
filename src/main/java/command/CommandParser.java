@@ -49,6 +49,8 @@ public class CommandParser {
                 argument = "";
             }
 
+            System.out.println(argument);
+
             Process process = new ProcessBuilder(executable, argument).start();
 
             process.getInputStream().transferTo(System.out);
