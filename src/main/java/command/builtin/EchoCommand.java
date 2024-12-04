@@ -62,7 +62,7 @@ public record EchoCommand(String message) implements Command {
             final var firstChar = message.charAt(i);
 
             if (firstChar == '\\') {
-                sb.append(message.charAt(i + 1));
+                sb.append(message.charAt(i++));
                 continue;
             }
 
