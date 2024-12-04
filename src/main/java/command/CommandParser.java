@@ -47,7 +47,7 @@ public class CommandParser {
         System.out.println(Arrays.toString(arguments));
 
         try {
-            Path workingDirectory = Path.of(".").toAbsolutePath().normalize();
+            Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
             System.out.println(Arrays.toString(arguments));
 
             final var commandArguments = Stream
