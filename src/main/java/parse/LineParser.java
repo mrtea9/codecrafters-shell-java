@@ -49,6 +49,6 @@ public class LineParser {
 
         System.out.println("sb = " + stringBuilder.toString());
 
-        return "";
+        return null;
     }
 }
