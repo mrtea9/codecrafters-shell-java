@@ -38,11 +38,13 @@ public class LineParser {
         final var stringBuilder = new StringBuilder();
 
         for (var character = iterator.current(); character != CharacterIterator.DONE; character = iterator.next()) {
-            System.out.println("char = " + character);
             switch (character) {
                 case SPACE -> {
                     if (!stringBuilder.isEmpty()) return stringBuilder.toString();
                 }
+                case SINGLE -> singleQuote(stringBuilder);
+                case DOUBLE -> doubleQuote(stringBuilder);
+                case BACKSLASH -> backslash(stringBuilder, false);
                 default -> {
                     stringBuilder.append(character);
                 }
@@ -52,5 +54,49 @@ public class LineParser {
         if (!stringBuilder.isEmpty()) return stringBuilder.toString();
 
         return null;
+    }
+
+    private void singleQuote(StringBuilder stringBuilder) {
+        char character;
+        while ((character = iterator.next()) != CharacterIterator.DONE && character != SINGLE) {
+            stringBuilder.append(character);
+        }
+    }
+
+    private void doubleQuote(StringBuilder stringBuilder) {
+        char character;
+        while ((character = iterator.next()) != CharacterIterator.DONE && character != DOUBLE) {
+            if (character == BACKSLASH) {
+                backslash(stringBuilder, true);
+            } else {
+                stringBuilder.append(character);
+            }
+        }
+    }
+
+    private void backslash(StringBuilder stringBuilder, boolean inQuote) {
+        var character = iterator.next();
+
+        if (character == CharacterIterator.DONE) return;
+
+        if (inQuote) {
+            final var mappedCharacter = mapBackslashCharacter(character);
+
+            if (mappedCharacter != CharacterIterator.DONE) {
+                character = mappedCharacter;
+            } else {
+                stringBuilder.append(BACKSLASH);
+            }
+        }
+
+        stringBuilder.append(character);
+    }
+
+    private char mapBackslashCharacter(char character) {
+        return switch (character) {
+            case DOUBLE -> DOUBLE;
+            case BACKSLASH -> BACKSLASH;
+            default -> CharacterIterator.DONE;
+        };
     }
 }
