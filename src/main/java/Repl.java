@@ -15,10 +15,11 @@ public class Repl {
     public void start() {
         while (true) {
             System.out.print("$ ");
-
             String input = scanner.nextLine();
 
             final var parsed = commandParser.parse(input);
+
+            System.out.println(parsed);
 
             if (parsed == null) continue;
 
