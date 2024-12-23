@@ -83,26 +83,4 @@ public class CommandParser {
             throw new RuntimeException(e);
         }
     }
-
-    public static List<String> splitArguments(String input) {
-        List<String> arguments = new ArrayList<>();
-        Pattern pattern = Pattern.compile(
-                "\"(\\\\.|[^\"])*\"|'(\\\\.|[^'])*'|\\S+"
-        );
-        Matcher matcher = pattern.matcher(input);
-
-        while (matcher.find()) {
-            String match = matcher.group();
-            if (match.startsWith("\"") && match.endsWith("\"")) {
-                // Keep escaped characters and remove surrounding double quotes
-                match = match.substring(1, match.length() - 1).replace("\\\"", "\"");
-            } else if (match.startsWith("'") && match.endsWith("'")) {
-                // Keep escaped characters and remove surrounding single quotes
-                match = match.substring(1, match.length() - 1).replace("\\'", "'");
-            }
-            arguments.add(match);
-        }
-
-        return arguments;
-    }
 }
