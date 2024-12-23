@@ -49,21 +49,8 @@ public class CommandParser {
         return new ParsedCommand(arguments, command);
     }
 
-    private void executeProcess(String executable, List<String> argumentsRaw) {
+    private void executeProcess(String executable, List<String> arguments) {
         //System.out.println();
-
-        String[] arguments = argumentsRaw.getFirst().split("(?<=')\\s+(?=')");
-        if (arguments.length == argumentsRaw.size()) {
-            arguments = argumentsRaw.getFirst().split("(?<=\")\\s+(?=\")");
-
-            for (int i = 0; i < arguments.length; i++) {
-                arguments[i] = arguments[i].replace("\"", "").trim();
-            }
-        } else {
-            for (int i = 0; i < arguments.length; i++) {
-                arguments[i] = arguments[i].replace("'", "").trim();
-            }
-        }
 
         try {
             Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
@@ -71,9 +58,10 @@ public class CommandParser {
             final var commandArguments = Stream
                     .concat(
                             Stream.of(executable),
-                            Arrays.stream(arguments)
+                            arguments.stream()
                     )
                     .toList();
+
             Process process = new ProcessBuilder(commandArguments).inheritIO().directory(workingDirectory.toFile()).start();
 
             process.waitFor();

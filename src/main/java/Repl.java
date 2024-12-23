@@ -16,7 +16,6 @@ public class Repl {
         while (true) {
             System.out.print("$ ");
             String input = scanner.nextLine();
-            System.out.print("$ ");
 
             final var parsed = commandParser.parse(input);
 
