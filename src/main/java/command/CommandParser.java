@@ -28,15 +28,9 @@ public class CommandParser {
 
         List<String> arguments = new LineParser(input).parse();
 
-        if (input.startsWith("'") || input.startsWith("\"")) {
-            arguments = splitArguments(input);
-        } else {
-            arguments = new ArrayList<>(Arrays.asList(input.split(" ", 2)));
-        }
-
         String name = arguments.getFirst();
 
-        //System.out.println(name);
+        System.out.println(name);
         storage.updateExecutables();
         final var executable = storage.getExecutables().get(name);
         if (executable != null && !name.equals("pwd") && !name.equals("cd") && !name.equals("echo")) {
