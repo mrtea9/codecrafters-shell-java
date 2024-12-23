@@ -30,7 +30,7 @@ public class CommandParser {
 
         String name = arguments.getFirst();
 
-        System.out.println(name);
+        //System.out.println(name);
         storage.updateExecutables();
         final var executable = storage.getExecutables().get(name);
         if (executable != null && !name.equals("pwd") && !name.equals("cd") && !name.equals("echo")) {
