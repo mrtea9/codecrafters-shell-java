@@ -19,8 +19,6 @@ public class Repl {
 
             final var parsed = commandParser.parse(input);
 
-            System.out.println(parsed);
-
             if (parsed == null) continue;
 
             CommandResponse result = parsed.command().execute(storage);
