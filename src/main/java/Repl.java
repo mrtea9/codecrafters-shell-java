@@ -13,10 +13,10 @@ public class Repl {
     private final CommandParser commandParser = new CommandParser(storage);
 
     public void start() {
-        System.out.print("$ ");
         while (true) {
             System.out.print("$ ");
             String input = scanner.nextLine();
+            System.out.print("$ s");
 
             final var parsed = commandParser.parse(input);
 
