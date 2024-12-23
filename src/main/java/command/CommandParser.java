@@ -1,5 +1,6 @@
 package command;
 
+import parse.LineParser;
 import store.Storage;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class CommandParser {
 
         System.out.println(input);
 
-        List<String> arguments;
+        List<String> arguments = new LineParser(input).parse();
 
         if (input.startsWith("'") || input.startsWith("\"")) {
             arguments = splitArguments(input);
