@@ -24,11 +24,21 @@ public class LineParser {
     public List<String> parse() {
         String argument;
 
-        final var test = iterator.first();
+        iterator.first();
+        while ((argument = nextArgument()) != null) {
+            arguments.add(argument);
+        }
 
-        System.out.println(test);
-
-        return new ArrayList<>();
+        return arguments;
     }
 
+    private String nextArgument() {
+        final var stringBuilder = new StringBuilder();
+
+        for (var character = iterator.current(); character != CharacterIterator.DONE; character = iterator.next()) {
+            System.out.println("char = " + character);
+        }
+
+        return "";
+    }
 }
