@@ -37,7 +37,17 @@ public class LineParser {
 
         for (var character = iterator.current(); character != CharacterIterator.DONE; character = iterator.next()) {
             System.out.println("char = " + character);
+            switch (character) {
+                case SPACE -> {
+                    if (!stringBuilder.isEmpty()) return stringBuilder.toString();
+                }
+                default -> {
+                    stringBuilder.append(character);
+                }
+            }
         }
+
+        System.out.println("sb = " + stringBuilder.toString());
 
         return "";
     }
