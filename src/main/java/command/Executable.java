@@ -18,7 +18,7 @@ public record Executable(Path path) implements Command {
 
             final var commandArguments = Stream
                     .concat(
-                            Stream.of(arguments.get(1)),
+                            Stream.of(arguments.get(0)),
                             arguments.stream().skip(1)
                     )
                     .toList();
