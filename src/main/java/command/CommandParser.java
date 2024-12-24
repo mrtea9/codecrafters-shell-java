@@ -61,6 +61,8 @@ public class CommandParser {
                     )
                     .toList();
 
+            System.out.println("command arguments = " + commandArguments);
+
             Process process = new ProcessBuilder(commandArguments).inheritIO().directory(workingDirectory.toFile()).start();
 
             process.waitFor();
