@@ -22,7 +22,7 @@ public class LineParser {
         this.iterator = new StringCharacterIterator(line);
     }
 
-    public List<String> parse() {
+    public ParsedLine parse() {
         String argument;
 
         iterator.first();
@@ -32,7 +32,7 @@ public class LineParser {
 
         //System.out.println("arguments = " + arguments);
 
-        return arguments;
+        return new ParsedLine(arguments, redirects);
     }
 
     private String nextArgument() {
@@ -109,6 +109,8 @@ public class LineParser {
         //final var append = character == GREATER_THAN;
 
         final var path = nextArgument();
-        System.out.println("path = " + path);
+        //System.out.println("path = " + path);
+
+        redirects.add(path);
     }
 }

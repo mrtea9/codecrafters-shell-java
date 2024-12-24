@@ -24,7 +24,8 @@ public class CommandParser {
 
         //System.out.println(input);
 
-        List<String> arguments = new LineParser(input).parse();
+        final var parsedLine = new LineParser(input).parse();
+        final var arguments = parsedLine.arguments();
 
         String name = arguments.getFirst();
 
@@ -48,7 +49,7 @@ public class CommandParser {
     }
 
     private void executeProcess(String executable, List<String> arguments) {
-        System.out.println(arguments);
+        //System.out.println(arguments);
 
         try {
             Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
