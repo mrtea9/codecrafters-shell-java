@@ -31,7 +31,10 @@ public class Repl {
     private void eval(Storage storage, String line) {
         final var parsed = commandParser.parse(line);
 
+        if (parsed == null) return;
+
         CommandResponse result = parsed.command().execute(storage);
+        if (result == null) return;
 
         System.out.println(result);
     }
