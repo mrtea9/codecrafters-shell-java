@@ -11,13 +11,15 @@ public record CdCommand() implements Command {
 
     @Override
     public CommandResponse execute(Storage storage, List<String> arguments) {
-        String directoryString = arguments.get(1);
+        String directoryName = arguments.get(1);
+
+        String directoryString = directoryName;
 
         if (directoryString.startsWith("~")) directoryString = homeDirectory();
 
-        if (directoryString.startsWith("./")) directoryString = nextDirectory();
+        if (directoryString.startsWith("./")) directoryString = nextDirectory(directoryName);
 
-        if (directoryString.startsWith("../")) directoryString = previousDirectory();
+        if (directoryString.startsWith("../")) directoryString = previousDirectory(directoryName);
 
         File directory = new File(directoryString);
 
@@ -28,12 +30,12 @@ public record CdCommand() implements Command {
         return null;
     }
 
-    private String nextDirectory() {
+    private String nextDirectory(String directoryName) {
 
         return "%s/%s".formatted(System.getProperty("user.dir"), directoryName.substring(2));
     }
 
-    private String previousDirectory() {
+    private String previousDirectory(String directoryName) {
         String currentDirectory = System.getProperty("user.dir");
         String[] stepsBackArray = directoryName.split("/");
         String[] currentDirectoryArray = currentDirectory.split("/");
