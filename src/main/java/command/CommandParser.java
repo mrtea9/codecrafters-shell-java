@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.BiFunction;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class CommandParser {
@@ -50,7 +48,7 @@ public class CommandParser {
     }
 
     private void executeProcess(String executable, List<String> arguments) {
-        //System.out.println();
+        System.out.println(arguments);
 
         try {
             Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
