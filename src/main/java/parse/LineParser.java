@@ -104,7 +104,11 @@ public class LineParser {
 
     private void redirect() {
         var character = iterator.next();
+        if (character == CharacterIterator.DONE) return;
 
-        System.out.println("redirect = " + character);
+        //final var append = character == GREATER_THAN;
+
+        final var path = nextArgument();
+        System.out.println("path = " + path);
     }
 }
