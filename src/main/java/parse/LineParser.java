@@ -16,6 +16,7 @@ public class LineParser {
     private final CharacterIterator iterator;
 
     private final List<String> arguments = new ArrayList<>();
+    private final List<String> redirects = new ArrayList<>();
 
     public LineParser(String line) {
         this.iterator = new StringCharacterIterator(line);
@@ -45,6 +46,7 @@ public class LineParser {
                 case SINGLE -> singleQuote(stringBuilder);
                 case DOUBLE -> doubleQuote(stringBuilder);
                 case BACKSLASH -> backslash(stringBuilder, false);
+                case GREATER_THAN -> redirect();
                 default -> {
                     stringBuilder.append(character);
                 }
@@ -98,5 +100,11 @@ public class LineParser {
             case BACKSLASH -> BACKSLASH;
             default -> CharacterIterator.DONE;
         };
+    }
+
+    private void redirect() {
+        var character = iterator.next();
+
+        System.out.println("redirect = " + character);
     }
 }
