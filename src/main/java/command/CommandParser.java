@@ -19,15 +19,7 @@ public class CommandParser {
         this.parsers = storage.getParsers();
     }
 
-    public ParsedCommand parse(String input) {
-        if (input.isEmpty()) throw new IllegalStateException("Input is empty");
-
-        //System.out.println(input);
-
-        final var parsedLine = new LineParser(input).parse();
-        final var arguments = parsedLine.arguments();
-
-        String name = arguments.getFirst();
+    public ParsedCommand parse(String name, List<String> arguments) {
 
         //System.out.println(name);
         storage.updateExecutables();

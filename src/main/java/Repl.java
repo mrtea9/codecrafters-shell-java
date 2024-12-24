@@ -1,9 +1,8 @@
 import command.CommandParser;
 import command.CommandResponse;
-import file.FindFile;
+import parse.LineParser;
 import store.Storage;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Repl {
@@ -29,9 +28,12 @@ public class Repl {
     }
 
     private void eval(Storage storage, String line) {
-        final var parsed = commandParser.parse(line);
+        final var parsedLine = new LineParser(line).parse();
 
-        if (parsed == null) return;
+        final var arguments = parsedLine.arguments();
+        final var command = arguments.getFirst();
+
+        final var parsed = commandParser.parse(command, arguments);
 
         CommandResponse result = parsed.command().execute(storage);
         if (result == null) return;
