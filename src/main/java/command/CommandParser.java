@@ -63,7 +63,11 @@ public class CommandParser {
 
             System.out.println("command arguments = " + commandArguments);
 
-            Process process = new ProcessBuilder(commandArguments).inheritIO().directory(workingDirectory.toFile()).start();
+            Process process = new ProcessBuilder(commandArguments)
+                    .inheritIO()
+                    .directory(workingDirectory.toFile())
+                    .redirectErrorStream(true)
+                    .start();
 
             process.waitFor();
         } catch (IOException e) {
