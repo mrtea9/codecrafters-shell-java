@@ -36,7 +36,7 @@ public class Repl {
         final var parsed = commandParser.parse(command, arguments);
         if (parsed == null) return;
 
-        CommandResponse result = parsed.command().execute(storage, arguments);
+        CommandResponse result = parsed.execute(storage, arguments);
         if (result == null) return;
 
         System.out.println(result);

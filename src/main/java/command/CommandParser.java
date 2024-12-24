@@ -23,10 +23,10 @@ public class CommandParser {
         this.parsers = storage.getParsers();
     }
 
-    public ParsedCommand parse(String name, List<String> arguments) {
+    public Command parse(String name, List<String> arguments) {
 
         final var builtin = parsers.get(name);
-        if (builtin != null) return new ParsedCommand(arguments, builtin);
+        if (builtin != null) return builtin;
 
         final var separator = IS_WINDOWS ? ";" : ":";
         final var paths = System.getenv("PATH").split(separator);
@@ -34,41 +34,9 @@ public class CommandParser {
         for (final var directory : paths) {
             final var path = Paths.get(directory, name).normalize().toAbsolutePath();
 
-            if (Files.exists(path)) {
-                executeProcess(name, arguments.subList(1, arguments.size()));
-                return null;
-            }
+            if (Files.exists(path)) return new Executable(path);
         }
 
         return null;
-    }
-
-    private void executeProcess(String executable, List<String> arguments) {
-        //System.out.println(arguments);
-
-        try {
-            Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
-
-            final var commandArguments = Stream
-                    .concat(
-                            Stream.of(executable),
-                            arguments.stream()
-                    )
-                    .toList();
-
-            System.out.println("command arguments = " + commandArguments);
-
-            Process process = new ProcessBuilder(commandArguments)
-                    .inheritIO()
-                    .directory(workingDirectory.toFile())
-                    .redirectErrorStream(true)
-                    .start();
-
-            process.waitFor();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
