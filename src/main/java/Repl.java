@@ -15,15 +15,7 @@ public class Repl {
     public void start() {
         while (true) {
             final var line = read();
-
-            final var parsed = commandParser.parse(line);
-
-            if (parsed == null) continue;
-
-            CommandResponse result = parsed.command().execute(storage);
-            if (result == null) continue;
-
-            System.out.println(result);
+            eval(storage, line);
         }
     }
 
@@ -34,5 +26,13 @@ public class Repl {
 
             if (!line.isEmpty()) return line;
         }
+    }
+
+    private void eval(Storage storage, String line) {
+        final var parsed = commandParser.parse(line);
+
+        CommandResponse result = parsed.command().execute(storage);
+
+        System.out.println(result);
     }
 }
