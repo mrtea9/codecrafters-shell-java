@@ -4,10 +4,14 @@ import command.Command;
 import command.CommandResponse;
 import store.Storage;
 
-public record TypeCommand(String command) implements Command {
+import java.util.List;
+
+public record TypeCommand() implements Command {
 
     @Override
-    public CommandResponse execute(Storage storage) {
+    public CommandResponse execute(Storage storage, List<String> arguments) {
+        final var command = arguments.get(1);
+
         final var value = storage.getParsers().get(command);
         final var executable = storage.getExecutables().get(command);
 

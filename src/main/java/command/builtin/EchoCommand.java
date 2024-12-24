@@ -4,12 +4,14 @@ import command.Command;
 import command.CommandResponse;
 import store.Storage;
 
-public record EchoCommand(String message) implements Command {
+import java.util.List;
+
+public record EchoCommand() implements Command {
 
     @Override
-    public CommandResponse execute(Storage storage) {
+    public CommandResponse execute(Storage storage, List<String> arguments) {
 
-        return new CommandResponse(message);
+        return new CommandResponse(arguments.get(1));
     }
 
 }

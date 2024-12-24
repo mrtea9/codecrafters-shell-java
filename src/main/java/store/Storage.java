@@ -13,19 +13,18 @@ import java.util.function.Supplier;
 
 public class Storage {
 
-    private final Map<String, BiFunction<String, List<String>, Command>> parsers = new TreeMap<>();
+    private final Map<String, Command> parsers = new TreeMap<>();
     private Map<String, String> executables;
 
     public Storage() {
         FindFile findFile = new FindFile();
         this.executables = findFile.parseFiles();
 
-        register("pwd", noArgumentCommand(PwdCommand::new));
-
-        register("exit", singleArgumentCommand(ExitCommand::new));
-        register("echo", singleArgumentCommand(EchoCommand::new));
-        register("type", singleArgumentCommand(TypeCommand::new));
-        register("cd", singleArgumentCommand(CdCommand::new));
+        register("pwd", new PwdCommand());
+        register("exit", new ExitCommand());
+        register("echo", new EchoCommand());
+        register("type", new TypeCommand());
+        register("cd", new CdCommand());
     }
 
     public void updateExecutables() {
@@ -33,7 +32,7 @@ public class Storage {
         this.executables = findFile.parseFiles();
     }
 
-    public Map<String, BiFunction<String, List<String>, Command>> getParsers() {
+    public Map<String, Command> getParsers() {
         return parsers;
     }
 
@@ -41,25 +40,7 @@ public class Storage {
         return executables;
     }
 
-    public void register(String name, BiFunction<String, List<String>, Command> parser) {
+    public void register(String name, Command parser) {
         parsers.put(name, parser);
-    }
-
-    private BiFunction<String, List<String>, Command> noArgumentCommand(Supplier<Command> constructor) {
-        return (name, arguments) -> {
-            return constructor.get();
-        };
-    }
-
-    private BiFunction<String, List<String>, Command> singleArgumentCommand(Function<String, Command> constructor) {
-        return (name, arguments) -> {
-            if (arguments.size() != 1) throw new IllegalArgumentException("to many args");
-
-            //System.out.println(name);
-            //System.out.println(arguments);
-
-            final var first = arguments.get(0);
-            return constructor.apply(first);
-        };
     }
 }

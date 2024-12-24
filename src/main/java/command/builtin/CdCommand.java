@@ -5,12 +5,13 @@ import command.CommandResponse;
 import store.Storage;
 
 import java.io.File;
+import java.util.List;
 
-public record CdCommand(String directoryName) implements Command {
+public record CdCommand() implements Command {
 
     @Override
-    public CommandResponse execute(Storage storage) {
-        String directoryString = directoryName;
+    public CommandResponse execute(Storage storage, List<String> arguments) {
+        String directoryString = arguments.get(1);
 
         if (directoryString.startsWith("~")) directoryString = homeDirectory();
 

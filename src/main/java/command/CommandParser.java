@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 public class CommandParser {
 
-    private final Map<String, BiFunction<String, List<String>, Command>> parsers;
+    private final Map<String, Command> parsers;
     private final Storage storage;
 
     public CommandParser(Storage storage) {
@@ -21,7 +21,6 @@ public class CommandParser {
 
     public ParsedCommand parse(String name, List<String> arguments) {
 
-        //System.out.println(name);
         storage.updateExecutables();
         final var executable = storage.getExecutables().get(name);
         if (executable != null && !name.equals("pwd") && !name.equals("cd") && !name.equals("echo")) {
@@ -29,13 +28,11 @@ public class CommandParser {
             return null;
         }
 
-        final var parser = parsers.get(name);
-        if (parser == null) {
+        final var command = parsers.get(name);
+        if (command == null) {
             System.out.println("%s: command not found".formatted(name));
             return null;
         }
-
-        final var command = parser.apply(name, arguments.subList(1, arguments.size()));
 
         return new ParsedCommand(arguments, command);
     }
