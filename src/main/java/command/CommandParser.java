@@ -4,12 +4,16 @@ import parse.LineParser;
 import store.Storage;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
 public class CommandParser {
+
+    public static final boolean IS_WINDOWS = System.getProperty("os.name").startsWith("Windows");
 
     private final Map<String, Command> parsers;
     private final Storage storage;
@@ -21,20 +25,22 @@ public class CommandParser {
 
     public ParsedCommand parse(String name, List<String> arguments) {
 
-        storage.updateExecutables();
-        final var executable = storage.getExecutables().get(name);
-        if (executable != null && !name.equals("pwd") && !name.equals("cd") && !name.equals("echo")) {
-            executeProcess(executable, arguments.subList(1, arguments.size()));
-            return null;
+        final var builtin = parsers.get(name);
+        if (builtin != null) return new ParsedCommand(arguments, builtin);
+
+        final var separator = IS_WINDOWS ? ";" : ":";
+        final var paths = System.getenv("PATH").split(separator);
+
+        for (final var directory : paths) {
+            final var path = Paths.get(directory, name).normalize().toAbsolutePath();
+
+            if (Files.exists(path)) {
+                executeProcess(name, arguments.subList(1, arguments.size()));
+                return null;
+            }
         }
 
-        final var command = parsers.get(name);
-        if (command == null) {
-            System.out.println("%s: command not found".formatted(name));
-            return null;
-        }
-
-        return new ParsedCommand(arguments, command);
+        return null;
     }
 
     private void executeProcess(String executable, List<String> arguments) {
