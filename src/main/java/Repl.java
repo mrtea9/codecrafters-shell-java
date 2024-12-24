@@ -14,10 +14,9 @@ public class Repl {
 
     public void start() {
         while (true) {
-            System.out.print("$ ");
-            String input = scanner.nextLine();
+            final var line = read();
 
-            final var parsed = commandParser.parse(input);
+            final var parsed = commandParser.parse(line);
 
             if (parsed == null) continue;
 
@@ -25,6 +24,15 @@ public class Repl {
             if (result == null) continue;
 
             System.out.println(result);
+        }
+    }
+
+    private String read() {
+        while (true) {
+            System.out.print("$ ");
+            String line = this.scanner.nextLine();
+
+            if (!line.isEmpty()) return line;
         }
     }
 }
