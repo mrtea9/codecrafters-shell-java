@@ -6,13 +6,18 @@ import io.RedirectStreams;
 import store.Storage;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public record EchoCommand() implements Command {
 
     @Override
     public CommandResponse execute(Storage storage, List<String> arguments, RedirectStreams redirects) {
 
-        return new CommandResponse(arguments.get(1));
+        final var line = arguments.stream().skip(1).collect(Collectors.joining(" "));
+
+        redirects.output().println(line);
+
+        return null;
     }
 
 }
