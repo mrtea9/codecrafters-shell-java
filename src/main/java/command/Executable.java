@@ -29,14 +29,12 @@ public record Executable(Path path) implements Command {
             //System.out.println("command arguments = " + commandArguments);
             //System.out.println("redirect = " + redirects.get(0).namedStream());
 
-            final var redirectStreams = RedirectStreams.from(redirects);
-
             final var builder = new ProcessBuilder(commandArguments)
                     .inheritIO()
                     .directory(workingDirectory.toFile());
 
-            applyRedirect(builder, redirectStreams.output(), StandardNamedStream.OUTPUT);
-            applyRedirect(builder, redirectStreams.error(), StandardNamedStream.ERROR);
+            applyRedirect(builder, redirects.output(), StandardNamedStream.OUTPUT);
+            applyRedirect(builder, redirects.error(), StandardNamedStream.ERROR);
 
             final var process = builder.start();
 
