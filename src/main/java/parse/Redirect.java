@@ -4,7 +4,7 @@ import io.StandardNamedStream;
 
 import java.nio.file.Path;
 
-public record Redirect(StandardNamedStream namedStream, Path path) {
+public record Redirect(StandardNamedStream namedStream, Path path, boolean append) {
 
     public boolean isFile() {
         return path != null;

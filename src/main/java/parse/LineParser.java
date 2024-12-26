@@ -122,11 +122,12 @@ public class LineParser {
         var character = iterator.next();
         if (character == CharacterIterator.DONE) return;
 
-        //final var append = character == GREATER_THAN;
+        final var append = character == GREATER_THAN;
+        if (append) iterator.next();
 
         final var path = nextArgument();
         //System.out.println("path = " + path);
 
-        redirects.add(new Redirect(standardStream, Path.of(path)));
+        redirects.add(new Redirect(standardStream, Path.of(path), append));
     }
 }
