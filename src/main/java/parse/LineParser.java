@@ -1,5 +1,8 @@
 package parse;
 
+import io.StandardNamedStream;
+
+import java.nio.file.Path;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 import java.util.ArrayList;
@@ -16,7 +19,7 @@ public class LineParser {
     private final CharacterIterator iterator;
 
     private final List<String> arguments = new ArrayList<>();
-    private final List<String> redirects = new ArrayList<>();
+    private final List<Redirect> redirects = new ArrayList<>();
 
     public LineParser(String line) {
         this.iterator = new StringCharacterIterator(line);
@@ -124,6 +127,6 @@ public class LineParser {
         final var path = nextArgument();
         //System.out.println("path = " + path);
 
-        redirects.add(path);
+        redirects.add(new Redirect(StandardNamedStream.OUTPUT, Path.of(path)));
     }
 }
