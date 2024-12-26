@@ -28,7 +28,7 @@ public record Executable(Path path) implements Command {
 
             if (commandArguments.get(0).equals("echo")) System.out.println("command arguments = " + commandArguments);
 
-            //System.out.println("command arguments = " + commandArguments);
+            System.out.println("command arguments = " + commandArguments);
 
             final var builder = new ProcessBuilder(commandArguments)
                     .inheritIO()
