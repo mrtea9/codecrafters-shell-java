@@ -30,11 +30,13 @@ public record Executable(Path path) implements Command {
                     .inheritIO()
                     .directory(workingDirectory.toFile());
 
-            builder.redirectErrorStream(true);
 
-            final var redirect = ProcessBuilder.Redirect.to(Path.of(redirects.get(0)).toFile());
+            if (!redirects.isEmpty()) {
+                builder.redirectErrorStream(true);
+                final var redirect = ProcessBuilder.Redirect.to(Path.of(redirects.get(0)).toFile());
 
-            builder.redirectOutput(redirect);
+                builder.redirectOutput(redirect);
+            }
 
             final var process = builder.start();
 
