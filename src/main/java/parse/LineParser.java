@@ -48,6 +48,12 @@ public class LineParser {
                 case BACKSLASH -> backslash(stringBuilder, false);
                 case GREATER_THAN -> redirect();
                 default -> {
+                    if (Character.isDigit(character) && peek() == GREATER_THAN) {
+                        iterator.next();
+                        redirect();
+                        continue;
+                    }
+
                     stringBuilder.append(character);
                 }
             }
@@ -100,6 +106,13 @@ public class LineParser {
             case BACKSLASH -> BACKSLASH;
             default -> CharacterIterator.DONE;
         };
+    }
+
+    private char peek() {
+        final var character = iterator.next();
+        if (character != CharacterIterator.DONE) iterator.previous();
+
+        return character;
     }
 
     private void redirect() {
