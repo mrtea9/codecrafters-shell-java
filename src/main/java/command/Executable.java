@@ -59,7 +59,7 @@ public record Executable(Path path) implements Command {
             case RedirectStream.File file -> {
                 file.close();
 
-                if (file.path().equals("/tmp/quz/qux.md")) {
+                if (file.path().equals("/tmp/bar/qux.md")) {
                     System.out.println(streamName);
                     System.out.println(file.append());
                     System.out.println(file.path());
