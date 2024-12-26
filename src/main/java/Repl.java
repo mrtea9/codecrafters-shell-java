@@ -45,8 +45,9 @@ public class Repl {
         CommandResponse result = null;
 
         try (final var redirects = RedirectStreams.from(parsedLine.redirects())) {
-            if (command.equals("echo")) System.out.println(parsedLine.redirects());
+            if (command.equals("echo")) System.out.println(parsedLine.redirects().get(0).path());
             result = parsed.execute(storage, arguments, redirects);
+            System.out.println("este");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
