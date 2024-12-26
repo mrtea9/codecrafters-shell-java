@@ -39,10 +39,7 @@ public class Repl {
         final var redirects = parsedLine.redirects();
 
         CommandResponse result = parsed.execute(storage, arguments, redirects);
-        if (result == null) {
-            System.out.println("%s: command not found".formatted(command));
-            return;
-        }
+        if (result == null) return;
 
         System.out.println(result);
     }
