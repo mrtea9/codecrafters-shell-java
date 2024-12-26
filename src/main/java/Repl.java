@@ -1,6 +1,9 @@
 import command.CommandParser;
 import command.CommandResponse;
+import io.RedirectStream;
+import io.RedirectStreams;
 import parse.LineParser;
+import parse.Redirect;
 import store.Storage;
 
 import java.util.Scanner;
@@ -39,9 +42,15 @@ public class Repl {
             return;
         }
 
-        final var redirects = parsedLine.redirects();
+        CommandResponse result = null;
 
-        CommandResponse result = parsed.execute(storage, arguments, redirects);
+        try (final var redirects = RedirectStreams.from(parsedLine.redirects())) {
+            result = parsed.execute(storage, arguments, redirects);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
         if (result == null) return;
 
         System.out.println(result);

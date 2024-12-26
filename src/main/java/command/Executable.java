@@ -3,7 +3,6 @@ package command;
 import io.RedirectStream;
 import io.RedirectStreams;
 import io.StandardNamedStream;
-import parse.Redirect;
 import store.Storage;
 
 import java.io.IOException;
@@ -16,7 +15,7 @@ public record Executable(Path path) implements Command {
     static int times = 0;
 
     @Override
-    public CommandResponse execute(Storage storage, List<String> arguments, List<Redirect> redirects) {
+    public CommandResponse execute(Storage storage, List<String> arguments, RedirectStreams redirects) {
         try {
             Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
 
