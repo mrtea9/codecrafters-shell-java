@@ -27,8 +27,8 @@ public record Executable(Path path) implements Command {
                     )
                     .toList();
 
-            System.out.println("command arguments = " + commandArguments);
-            System.out.println("redirect = " + redirects.get(0).namedStream());
+            //System.out.println("command arguments = " + commandArguments);
+            //System.out.println("redirect = " + redirects.get(0).namedStream());
 
             final var redirectStreams = RedirectStreams.from(redirects);
 
