@@ -38,7 +38,7 @@ public sealed interface RedirectStream extends AutoCloseable {
         public File(Path path, boolean append) throws FileNotFoundException {
             this.path = path;
             this.append = append;
-            this.outputStream = new FileOutputStream(path.toFile());
+            this.outputStream = new FileOutputStream(path.toFile(), append);
             this.writer = new PrintWriter(outputStream, true);
         }
 

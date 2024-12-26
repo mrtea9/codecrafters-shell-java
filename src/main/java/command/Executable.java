@@ -42,7 +42,7 @@ public record Executable(Path path) implements Command {
                     .directory(workingDirectory.toFile());
 
             applyRedirect(builder, redirects.output(), StandardNamedStream.OUTPUT);
-            //applyRedirect(builder, redirects.error(), StandardNamedStream.ERROR);
+            applyRedirect(builder, redirects.error(), StandardNamedStream.ERROR);
 
             final var process = builder.start();
 

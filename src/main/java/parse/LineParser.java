@@ -33,8 +33,6 @@ public class LineParser {
             arguments.add(argument);
         }
 
-        //System.out.println("arguments = " + arguments);
-
         return new ParsedLine(arguments, redirects);
     }
 
