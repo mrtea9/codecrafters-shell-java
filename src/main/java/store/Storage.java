@@ -2,14 +2,9 @@ package store;
 
 import command.Command;
 import command.builtin.*;
-import file.FindFile;
 
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class Storage {
 
