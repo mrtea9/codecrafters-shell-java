@@ -23,8 +23,8 @@ public record Executable(Path path) implements Command {
                     )
                     .toList();
 
-            System.out.println("command arguments = " + commandArguments);
-            System.out.println("redirect = " + redirects.get(0));
+            //System.out.println("command arguments = " + commandArguments);
+            //System.out.println("redirect = " + redirects.get(0));
 
             final var builder = new ProcessBuilder(commandArguments)
                     .inheritIO()
