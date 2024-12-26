@@ -13,7 +13,7 @@ public class Storage {
     public Storage() {
         register("pwd", new PwdCommand());
         register("exit", new ExitCommand());
-        register("echo", new EchoCommand());
+        //register("echo", new EchoCommand());
         register("type", new TypeCommand());
         register("cd", new CdCommand());
     }
