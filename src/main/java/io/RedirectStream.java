@@ -31,11 +31,13 @@ public sealed interface RedirectStream extends AutoCloseable {
     public final class File implements RedirectStream {
 
         private final Path path;
+        private final boolean append;
         private final FileOutputStream outputStream;
         private final PrintWriter writer;
 
-        public File(Path path) throws FileNotFoundException {
+        public File(Path path, boolean append) throws FileNotFoundException {
             this.path = path;
+            this.append = append;
             this.outputStream = new FileOutputStream(path.toFile());
             this.writer = new PrintWriter(outputStream, true);
         }
@@ -60,6 +62,10 @@ public sealed interface RedirectStream extends AutoCloseable {
 
         public Path path() {
             return path;
+        }
+
+        public boolean append() {
+            return append;
         }
     }
 }

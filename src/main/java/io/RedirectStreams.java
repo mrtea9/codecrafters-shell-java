@@ -18,7 +18,7 @@ public record RedirectStreams(RedirectStream output, RedirectStream error) imple
 
         for (final var redirect : redirects) {
             @SuppressWarnings("resource")
-            final var stream = new RedirectStream.File(redirect.path());
+            final var stream = new RedirectStream.File(redirect.path(), redirect.append());
 
             switch (redirect.namedStream()) {
                 case OUTPUT -> {

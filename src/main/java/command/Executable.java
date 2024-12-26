@@ -62,7 +62,9 @@ public record Executable(Path path) implements Command {
             case RedirectStream.File file -> {
                 file.close();
 
-                final var redirect = ProcessBuilder.Redirect.to(file.path().toFile());
+                final var redirect = file.append()
+                        ? ProcessBuilder.Redirect.appendTo(file.path().toFile())
+                        : ProcessBuilder.Redirect.to(file.path().toFile());
 
                 if (isStderr) {
                     builder.redirectError(redirect);
