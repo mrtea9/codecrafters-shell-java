@@ -51,8 +51,6 @@ public class LineParser {
                     if (Character.isDigit(character) && peek() == GREATER_THAN) {
                         iterator.next();
                         redirect();
-                        System.out.println(arguments);
-                        System.out.println(redirects);
                         continue;
                     }
 
