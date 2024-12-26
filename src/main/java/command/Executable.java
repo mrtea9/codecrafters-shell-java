@@ -59,21 +59,9 @@ public record Executable(Path path) implements Command {
             case RedirectStream.File file -> {
                 file.close();
 
-                if (file.path().equals("/tmp/bar/foo.md")) {
-                    System.out.println(streamName);
-                    System.out.println(file.append());
-                    System.out.println(file.path());
-                }
-
-//                System.out.println(streamName);
-//                System.out.println(file.append());
-//                System.out.println(file.path());
-
                 final var redirect = file.append()
                         ? ProcessBuilder.Redirect.appendTo(file.path().toFile())
                         : ProcessBuilder.Redirect.to(file.path().toFile());
-
-               // System.out.println("append = " + file.append());
 
                 if (isStderr) {
                     builder.redirectError(redirect);
