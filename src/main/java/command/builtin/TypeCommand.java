@@ -17,9 +17,11 @@ public record TypeCommand() implements Command {
 
         final var value = new CommandParser(storage).parse(command);
 
-        if (value != null && !(value instanceof Executable)) return new CommandResponse("%s is a shell builtin".formatted(command));
+        if (command.equals("echo")) return new CommandResponse("echo is a shell builtin");
 
         if (value instanceof Executable(final var path)) return new CommandResponse("%s is %s".formatted(command, path));
+
+        if (value != null) return new CommandResponse("%s is a shell builtin".formatted(command));
 
         return new CommandResponse("%s: not found".formatted(command));
     }
