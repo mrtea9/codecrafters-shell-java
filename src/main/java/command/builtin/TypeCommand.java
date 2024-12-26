@@ -1,6 +1,7 @@
 package command.builtin;
 
 import command.Command;
+import command.CommandParser;
 import command.CommandResponse;
 import command.Executable;
 import parse.Redirect;
@@ -14,7 +15,9 @@ public record TypeCommand() implements Command {
     public CommandResponse execute(Storage storage, List<String> arguments, List<Redirect> redirects) {
         final var command = arguments.get(1);
 
-        final var value = storage.getParsers().get(command);
+        final var value = new CommandParser(storage).parse(command);
+
+        if (value instanceof Executable(final var path)) return new CommandResponse("%s is %s".formatted(command, path));
 
         if (value != null) return new CommandResponse("%s is a shell builtin".formatted(command));
 
