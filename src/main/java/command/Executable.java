@@ -1,5 +1,6 @@
 package command;
 
+import parse.Redirect;
 import store.Storage;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ public record Executable(Path path) implements Command {
     static int times = 0;
 
     @Override
-    public CommandResponse execute(Storage storage, List<String> arguments, List<String> redirects) {
+    public CommandResponse execute(Storage storage, List<String> arguments, List<Redirect> redirects) {
         try {
             Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
 
@@ -32,7 +33,7 @@ public record Executable(Path path) implements Command {
 
 
             if (!redirects.isEmpty()) {
-                final var redirect = ProcessBuilder.Redirect.to(Path.of(redirects.get(0)).toFile());
+                final var redirect = ProcessBuilder.Redirect.to(redirects.get(0).path().toFile());
 
                 builder.redirectOutput(redirect);
 
