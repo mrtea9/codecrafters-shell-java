@@ -12,7 +12,7 @@ public record Executable(Path path) implements Command {
     static int times = 0;
 
     @Override
-    public CommandResponse execute(Storage storage, List<String> arguments) {
+    public CommandResponse execute(Storage storage, List<String> arguments, List<String> redirects) {
         try {
             Path workingDirectory = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize();
 
@@ -24,12 +24,19 @@ public record Executable(Path path) implements Command {
                     .toList();
 
             System.out.println("command arguments = " + commandArguments);
+            System.out.println("redirect = " + redirects.get(0));
 
-            Process process = new ProcessBuilder(commandArguments)
+            final var builder = new ProcessBuilder(commandArguments)
                     .inheritIO()
-                    .directory(workingDirectory.toFile())
-                    .redirectErrorStream(true)
-                    .start();
+                    .directory(workingDirectory.toFile());
+
+            builder.redirectErrorStream(true);
+
+            final var redirect = ProcessBuilder.Redirect.to(Path.of(redirects.getFirst()).toFile());
+
+            builder.redirectOutput(redirect);
+
+            final var process = builder.start();
 
             process.waitFor();
         } catch (IOException e) {

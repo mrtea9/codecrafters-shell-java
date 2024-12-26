@@ -10,7 +10,7 @@ import java.util.List;
 public record CdCommand() implements Command {
 
     @Override
-    public CommandResponse execute(Storage storage, List<String> arguments) {
+    public CommandResponse execute(Storage storage, List<String> arguments, List<String> redirects) {
         String directoryName = arguments.get(1);
 
         String directoryString = directoryName;

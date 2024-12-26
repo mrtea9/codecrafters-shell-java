@@ -9,7 +9,7 @@ import java.util.List;
 public record TypeCommand() implements Command {
 
     @Override
-    public CommandResponse execute(Storage storage, List<String> arguments) {
+    public CommandResponse execute(Storage storage, List<String> arguments, List<String> redirects) {
         final var command = arguments.get(1);
 
         final var value = storage.getParsers().get(command);

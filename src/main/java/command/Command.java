@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface Command {
 
-    CommandResponse execute(Storage storage, List<String> arguments);
+    CommandResponse execute(Storage storage, List<String> arguments, List<String> redirects);
 
 }
