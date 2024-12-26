@@ -30,6 +30,9 @@ public record Executable(Path path) implements Command {
                 System.out.println("command arguments = " + commandArguments);
                 System.out.println(redirects);
                 System.out.println(redirects.output());
+                if (redirects.output() instanceof RedirectStream.File file) {
+                    System.out.println(file.path());
+                }
             }
 
             //System.out.println("command arguments = " + commandArguments);
