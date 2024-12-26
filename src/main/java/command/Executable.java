@@ -27,7 +27,6 @@ public record Executable(Path path) implements Command {
                     .toList();
 
             //System.out.println("command arguments = " + commandArguments);
-            //System.out.println("redirect = " + redirects.get(0).namedStream());
 
             final var builder = new ProcessBuilder(commandArguments)
                     .inheritIO()
@@ -59,9 +58,7 @@ public record Executable(Path path) implements Command {
             case RedirectStream.File file -> {
                 file.close();
 
-                final var redirect = file.append()
-                        ? ProcessBuilder.Redirect.appendTo(file.path().toFile())
-                        : ProcessBuilder.Redirect.to(file.path().toFile());
+                final var redirect = ProcessBuilder.Redirect.appendTo(file.path().toFile());
 
                 if (isStderr) {
                     builder.redirectError(redirect);
