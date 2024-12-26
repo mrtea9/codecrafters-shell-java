@@ -26,14 +26,14 @@ public record Executable(Path path) implements Command {
                     )
                     .toList();
 
-            if (commandArguments.get(0).contains("echo")) {
-                System.out.println("command arguments = " + commandArguments);
-                System.out.println(redirects);
-                System.out.println(redirects.output());
-                if (redirects.output() instanceof RedirectStream.File file) {
-                    System.out.println(file.path());
-                }
-            }
+//            if (commandArguments.get(0).contains("echo")) {
+//                System.out.println("command arguments = " + commandArguments);
+//                System.out.println(redirects);
+//                System.out.println(redirects.output());
+//                if (redirects.output() instanceof RedirectStream.File file) {
+//                    System.out.println(file.path());
+//                }
+//            }
 
             //System.out.println("command arguments = " + commandArguments);
 
@@ -42,7 +42,7 @@ public record Executable(Path path) implements Command {
                     .directory(workingDirectory.toFile());
 
             applyRedirect(builder, redirects.output(), StandardNamedStream.OUTPUT);
-            applyRedirect(builder, redirects.error(), StandardNamedStream.ERROR);
+            //applyRedirect(builder, redirects.error(), StandardNamedStream.ERROR);
 
             final var process = builder.start();
 
@@ -67,7 +67,9 @@ public record Executable(Path path) implements Command {
             case RedirectStream.File file -> {
                 file.close();
 
-                final var redirect = ProcessBuilder.Redirect.appendTo(file.path().toFile());
+                final var redirect = file.append()
+                        ? ProcessBuilder.Redirect.appendTo(file.path().toFile())
+                        : ProcessBuilder.Redirect.to(file.path().toFile());
 
                 if (isStderr) {
                     builder.redirectError(redirect);
