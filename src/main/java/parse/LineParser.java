@@ -49,11 +49,11 @@ public class LineParser {
                 case SINGLE -> singleQuote(stringBuilder);
                 case DOUBLE -> doubleQuote(stringBuilder);
                 case BACKSLASH -> backslash(stringBuilder, false);
-                case GREATER_THAN -> redirect();
+                case GREATER_THAN -> redirect(StandardNamedStream.OUTPUT);
                 default -> {
                     if (Character.isDigit(character) && peek() == GREATER_THAN) {
                         iterator.next();
-                        redirect();
+                        redirect(StandardNamedStream.fromFileDescriptor(Character.digit(character, 10)));
                         continue;
                     }
 
@@ -118,7 +118,7 @@ public class LineParser {
         return character;
     }
 
-    private void redirect() {
+    private void redirect(StandardNamedStream standardStream) {
         var character = iterator.next();
         if (character == CharacterIterator.DONE) return;
 
@@ -127,6 +127,6 @@ public class LineParser {
         final var path = nextArgument();
         //System.out.println("path = " + path);
 
-        redirects.add(new Redirect(StandardNamedStream.OUTPUT, Path.of(path)));
+        redirects.add(new Redirect(standardStream, Path.of(path)));
     }
 }
