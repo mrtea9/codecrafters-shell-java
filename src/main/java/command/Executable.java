@@ -36,6 +36,7 @@ public record Executable(Path path) implements Command {
                 final var redirect = ProcessBuilder.Redirect.to(Path.of(redirects.get(0)).toFile());
 
                 builder.redirectOutput(redirect);
+                builder.redirectError(redirect);
             }
 
             final var process = builder.start();
