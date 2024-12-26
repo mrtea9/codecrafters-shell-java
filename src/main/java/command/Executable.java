@@ -26,7 +26,10 @@ public record Executable(Path path) implements Command {
                     )
                     .toList();
 
-            if (commandArguments.get(0).contains("echo")) System.out.println("command arguments = " + commandArguments);
+            if (commandArguments.get(0).contains("echo")) {
+                System.out.println("command arguments = " + commandArguments);
+                System.out.println(redirects);
+            }
 
             //System.out.println("command arguments = " + commandArguments);
 
