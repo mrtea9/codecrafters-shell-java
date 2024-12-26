@@ -32,10 +32,11 @@ public record Executable(Path path) implements Command {
 
 
             if (!redirects.isEmpty()) {
-                builder.redirectErrorStream(true);
                 final var redirect = ProcessBuilder.Redirect.to(Path.of(redirects.get(0)).toFile());
 
                 builder.redirectOutput(redirect);
+
+                builder.redirectErrorStream(true);
                 builder.redirectError(redirect);
             }
 
