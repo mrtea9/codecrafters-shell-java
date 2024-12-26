@@ -23,7 +23,7 @@ public class CommandParser {
         this.parsers = storage.getParsers();
     }
 
-    public Command parse(String name, List<String> arguments) {
+    public Command parse(String name) {
 
         final var builtin = parsers.get(name);
         if (builtin != null) return builtin;

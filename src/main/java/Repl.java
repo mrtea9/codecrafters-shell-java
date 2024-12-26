@@ -33,7 +33,7 @@ public class Repl {
         final var arguments = parsedLine.arguments();
         final var command = arguments.getFirst();
 
-        final var parsed = commandParser.parse(command, arguments);
+        final var parsed = commandParser.parse(command);
         if (parsed == null) return;
 
         CommandResponse result = parsed.execute(storage, arguments);
