@@ -37,9 +37,6 @@ public class CommandParser {
             if (Files.exists(path)) return new Executable(path);
         }
 
-        System.out.println(name);
-        System.out.println("%s: command not found".formatted(name));
-
         return null;
     }
 }
