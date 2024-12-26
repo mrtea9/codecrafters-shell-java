@@ -66,6 +66,8 @@ public record Executable(Path path) implements Command {
                         ? ProcessBuilder.Redirect.appendTo(file.path().toFile())
                         : ProcessBuilder.Redirect.to(file.path().toFile());
 
+                System.out.println("append = " + file.append());
+
                 if (isStderr) {
                     builder.redirectError(redirect);
                 } else {
