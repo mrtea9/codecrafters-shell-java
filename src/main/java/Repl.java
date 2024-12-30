@@ -1,9 +1,7 @@
 import command.CommandParser;
 import command.CommandResponse;
-import io.RedirectStream;
 import io.RedirectStreams;
 import parse.LineParser;
-import parse.Redirect;
 import store.Storage;
 
 import java.util.Scanner;
@@ -42,16 +40,13 @@ public class Repl {
             return;
         }
 
-        CommandResponse result = null;
+        CommandResponse result;
 
         try (final var redirects = RedirectStreams.from(parsedLine.redirects())) {
-            //if (command.equals("echo")) System.out.println(parsedLine.redirects());
             result = parsed.execute(storage, arguments, redirects);
-            //if (command.equals("echo")) System.out.println("este");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
 
         if (result == null) return;
 
