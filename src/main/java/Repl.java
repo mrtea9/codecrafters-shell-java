@@ -40,7 +40,6 @@ public class Repl {
             return;
         }
 
-
         CommandResponse result;
 
         try (final var redirects = RedirectStreams.from(parsedLine.redirects())) {
