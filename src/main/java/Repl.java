@@ -30,7 +30,6 @@ public class Repl {
 
     private void eval(Storage storage, String line) {
         final var parsedLine = new LineParser(line).parse();
-
         final var arguments = parsedLine.arguments();
         final var command = arguments.getFirst();
 
