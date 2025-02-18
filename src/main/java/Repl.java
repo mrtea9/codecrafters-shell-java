@@ -33,6 +33,7 @@ public class Repl {
         final var arguments = parsedLine.arguments();
         final var command = arguments.getFirst();
 
+
         final var parsed = commandParser.parse(command);
         if (parsed == null) {
             System.out.println("%s: command not found".formatted(command));
