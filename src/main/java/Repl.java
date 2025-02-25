@@ -19,7 +19,6 @@ public class Repl {
         }
     }
 
-
     private String read() {
         while (true) {
             System.out.print("$ ");
