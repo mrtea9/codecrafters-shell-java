@@ -16,7 +16,6 @@ public class Repl {
         while (true) {
             final var line = read();
             eval(storage, line);
-
         }
     }
 
